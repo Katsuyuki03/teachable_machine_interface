@@ -1,8 +1,8 @@
 //===============================================================
 // Import Library
 //===============================================================
-import * as THREE from './three.js-master/build/three.module';
-import { OrbitControls } from './three.js-master/examples/jsm/controls/OrbitControls';
+import * as THREE from './three.js-master/build/three.module.js';
+import { OrbitControls } from './three.js-master/examples/jsm/controls/OrbitControls.js';
 import { scene, camera, container, renderer } from './morphing_basescene.js';
 import { vertexShader, fragmentShader } from './morphing_glsl.js';
  

@@ -1,7 +1,7 @@
 //===============================================================
 // Import Library
 //===============================================================
-import * as THREE from './three.js-master/build/three.module';
+import * as THREE from './three.js-master/build/three.module.js';
  
 //===============================================================
 // Base scene
