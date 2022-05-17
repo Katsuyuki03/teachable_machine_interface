@@ -4,6 +4,17 @@
   // Model URL
   let imageModelURL = 'https://teachablemachine.withgoogle.com/models/v4aX69T_5/';
   
+
+  hands.setOptions({
+    selfieMode: isFlipped,
+    maxNumHands: 1, // 今回、簡単化のため検出数の最大1つまでに制限
+    modelComplexity: 1,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5,
+  });
+
+
+
   // Video
   let video;
   let flippedVideo;
