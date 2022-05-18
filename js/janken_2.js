@@ -44,17 +44,18 @@
     video.size(320, 240);
     video.hide();
 
-    flippedVideo = ml5.flipImage(video)[0];
+    flippedVideo = ml5.flipImage(video);
     // Start classifying
     classifyVideo();
   }
 
   function draw() {
-
+    clear();
 
     background(0);
     // Draw the video
     image(flippedVideo, 0, 0,windowWidth, windowHeight);
+    pop();
 
     // Draw the label
     fill(255,255,0);
@@ -62,7 +63,7 @@
     textAlign(CENTER);
     text(label, width / 2, height - 2);
 
-
+    push();
     if (keypointsHand.length > 0) {
       console.log(keypointsHand); // 結果を得る
 
