@@ -4,7 +4,26 @@
   // Model URL
   let imageModelURL = 'https://teachablemachine.withgoogle.com/models/v4aX69T_5/';
   
+  let keypointsHand = [];
 
+  function onHandsResults(results) {
+    keypointsHand = results.multiHandLandmarks;
+  }
+
+  const hands = new Hands({
+    locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+    },
+  });
+
+  hands.setOptions({
+    selfieMode: isFlipped,
+    maxNumHands: 1, // 今回、簡単化のため検出数の最大1つまでに制限
+    modelComplexity: 1,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5,
+  });
+  hands.onResults(onHandsResults);
 
 
   // Video
@@ -25,7 +44,7 @@
     video.size(320, 240);
     video.hide();
 
-    flippedVideo = ml5.flipImage(video);
+    flippedVideo = ml5.flipImage(video)[0];
     // Start classifying
     classifyVideo();
   }
@@ -42,6 +61,16 @@
     textSize(200);
     textAlign(CENTER);
     text(label, width / 2, height - 2);
+
+
+    if (keypointsHand.length > 0) {
+      console.log(keypointsHand); // 結果を得る
+
+      const indexTip = keypointsHand[8];
+      console.log(indexTip);
+
+      ellipse(indexTip.x * displayWidth, indexTip.y * displayHeight, 10);
+    }
 
 
   }
