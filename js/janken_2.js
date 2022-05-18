@@ -10,11 +10,13 @@
     keypointsHand = results.multiHandLandmarks;
   }
 
+  
   const hands = new Hands({
     locateFile: (file) => {
       return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
     },
   });
+
 
   hands.setOptions({
     selfieMode: isFlipped,
@@ -24,8 +26,8 @@
     minTrackingConfidence: 0.5,
   });
   hands.onResults(onHandsResults);
-
-
+  
+  
   // Video
   let video;
   let flippedVideo;
@@ -50,28 +52,17 @@
   }
 
   function draw() {
-    clear();
+
 
     background(0);
     // Draw the video
     image(flippedVideo, 0, 0,windowWidth, windowHeight);
-    pop();
 
     // Draw the label
     fill(255,255,0);
     textSize(200);
     textAlign(CENTER);
     text(label, width / 2, height - 2);
-
-    push();
-    if (keypointsHand.length > 0) {
-      console.log(keypointsHand); // 結果を得る
-
-      const indexTip = keypointsHand[8];
-      console.log(indexTip);
-
-      ellipse(indexTip.x * displayWidth, indexTip.y * displayHeight, 10);
-    }
 
 
   }
