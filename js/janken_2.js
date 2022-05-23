@@ -8,6 +8,9 @@
 
   let keypointsHand = [];
 
+  const videoElement = document.getElementsByClassName("input_video")[0];
+ 
+
   function onHandsResults(results) {
     keypointsHand = results.multiHandLandmarks;
   }
@@ -32,9 +35,18 @@
 
 
 
+  const camera = new Camera(videoElement, {
+    onFrame: async () => {
+      await hands.send({ image: videoElement });
+    },
+    width: 1280,
+    height: 720,
+  });
+
   
   // Video
   let video;
+  let videoImage;
   let flippedVideo;
   // To store the classification
   let label = "";
@@ -45,7 +57,10 @@
   }
 
   function setup() {
-    createCanvas(windowWidth, windowHeight);
+    clear();
+    const canvas = createCanvas(windowWidth, windowHeight);
+    videoImage = createGraphics(320, 180);
+
     // Create the video
     video = createCapture(VIDEO);
     video.size(320, 240);
@@ -69,6 +84,24 @@
     textAlign(CENTER);
     text(label, width / 2, height - 2);
 
+
+    videoImage.drawingContext.drawImage(
+      videoElement,
+      0,
+      0,
+      videoImage.width,
+      videoImage.height
+    );
+  
+    push();
+    if (isFlipped) {
+      translate(width, 0);
+      scale(-1, 1);
+    }
+    displayWidth = width;
+    displayHeight = (width * videoImage.height) / videoImage.width;
+    image(videoImage, 0, 0, displayWidth, displayHeight);
+    pop();
 
 
 
