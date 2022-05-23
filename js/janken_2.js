@@ -4,6 +4,8 @@
   // Model URL
   let imageModelURL = 'https://teachablemachine.withgoogle.com/models/v4aX69T_5/';
   
+  const isFlipped = true;
+
   let keypointsHand = [];
 
   function onHandsResults(results) {
@@ -28,13 +30,6 @@
   hands.onResults(onHandsResults);
   
 
-  const camera = new Camera(video, {
-    onFrame: async () => {
-      await hands.send({ image: video });
-    },
-    width: 1280,
-    height: 720,
-  });
 
 
   
@@ -74,10 +69,13 @@
     textAlign(CENTER);
     text(label, width / 2, height - 2);
 
+
+
+
     if (keypointsHand.length > 0) {
         console.log(keypointsHand); // 結果を得る
     
-        const indexTip = keypointsHand[8];
+        const indexTip = keypointsHand[0][8];
         console.log(indexTip);
     
         ellipse(indexTip.x * displayWidth, indexTip.y * displayHeight, 10);
