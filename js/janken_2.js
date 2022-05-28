@@ -1,140 +1,136 @@
+const CAMERA_WIDTH = 1280;
+const CAMERA_HEIGHT = 720;
 
-  // Classifier Variable
-  let classifier;
-  // Model URL
-  let imageModelURL = 'https://teachablemachine.withgoogle.com/models/v4aX69T_5/';
+// 人差し指の先端のインデックス
+// https://google.github.io/mediapipe/solutions/hands.html
+const INDEX_FINGER_TIP = 8;
+
+// Model URL
+const imageModelURL = 'https://teachablemachine.withgoogle.com/models/v4aX69T_5/';
+
+const lineLength = 60; // 線の長さ
+const points = new Array(lineLength).fill(0);
+
+// Classifier Variable
+let classifier;
   
-  const isFlipped = true;
+// To store the classification
+let label = '';
 
-  let keypointsHand = [];
+let handsResults;
 
-  const videoElement = document.getElementsByClassName("input_video")[0];
- 
+const videoElement = document.querySelector('#js-Video');
 
-  function onHandsResults(results) {
-    keypointsHand = results.multiHandLandmarks;
-  }
 
+const onHandsResults = (results) => {
+  handsResults = results;
+}
+
+const classifyVideo = (video) => {
+  const flippedVideo = ml5.flipImage(video);
   
-  const hands = new Hands({
-    locateFile: (file) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-    },
+  classifier.classify(flippedVideo, (error, results) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    label = results[0].label;
+
+    classifyVideo(video);
   });
+};
+
+/**
+ * fitCanvas
+ */
+ const fitCanvas = (target) => {
+  const domRect = target.getBoundingClientRect();
+  
+  resizeCanvas(domRect.width, domRect.height);
+};
+
+const camera = new Camera(videoElement, {
+  onFrame: async () => {
+    await hands.send({ image: videoElement, });
+  },
+  width: CAMERA_WIDTH,
+  height: CAMERA_HEIGHT,
+});
+
+const hands = new Hands({
+  locateFile: (file) => {
+    return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+  },
+});
+
+// Load the model first
+function preload() {
+  classifier = ml5.imageClassifier(imageModelURL + 'model.json');
+}
+
+function setup() {
+  // Create the video
+  const video = createCapture(VIDEO);
+
+  video.size(320, 240);
+  video.hide();
 
 
   hands.setOptions({
-    selfieMode: isFlipped,
+    selfieMode: true,
     maxNumHands: 1, // 今回、簡単化のため検出数の最大1つまでに制限
     modelComplexity: 1,
     minDetectionConfidence: 0.5,
     minTrackingConfidence: 0.5,
   });
+  
   hands.onResults(onHandsResults);
+  camera.start();
+
+  createCanvas(1280, 720);
+
+  // canvas を video 要素にあわせてリサイズする
+  fitCanvas(videoElement);
+
+  // Start classifying
+  classifyVideo(video);
+
+  noStroke();
+  textSize(200);
+  textAlign(CENTER);
+}
   
 
+function draw() {
+  clear();
+  background(0,0);
 
+  fitCanvas(videoElement);
 
-  const camera = new Camera(videoElement, {
-    onFrame: async () => {
-      await hands.send({ image: videoElement });
-    },
-    width: 1280,
-    height: 720,
-  });
+  if (handsResults && handsResults.multiHandLandmarks) {
+    handsResults.multiHandLandmarks.forEach((landmarks) => {
+      const { x, y } = landmarks[INDEX_FINGER_TIP];
 
-  
-  // Video
-  let video;
-  let videoImage;
-  let flippedVideo;
-  // To store the classification
-  let label = "";
-
-  // Load the model first
-  function preload() {
-    classifier = ml5.imageClassifier(imageModelURL + 'model.json');
+      points.shift();
+      points.push({ x, y });
+    });
   }
 
-  function setup() {
-    clear();
-    const canvas = createCanvas(windowWidth, windowHeight);
-    videoImage = createGraphics(320, 180);
-
-    // Create the video
-    video = createCapture(VIDEO);
-    video.size(320, 240);
-    video.hide();
-
-    flippedVideo = ml5.flipImage(video);
-    // Start classifying
-    classifyVideo();
+  push();
+  stroke(255);
+  strokeWeight(10);
+  strokeJoin(ROUND);
+  noFill();
+  beginShape();
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i];
+    curveVertex(p.x * width, p.y * height);
   }
+  endShape();
+  pop();
 
-  function draw() {
-
-
-    background(0);
-    // Draw the video
-    image(flippedVideo, 0, 0,windowWidth, windowHeight);
-
-    // Draw the label
-    fill(255,255,0);
-    textSize(200);
-    textAlign(CENTER);
-    text(label, width / 2, height - 2);
-
-
-    videoImage.drawingContext.drawImage(
-      videoElement,
-      0,
-      0,
-      videoImage.width,
-      videoImage.height
-    );
-  
-    push();
-    if (isFlipped) {
-      translate(width, 0);
-      scale(-1, 1);
-    }
-    displayWidth = width;
-    displayHeight = (width * videoImage.height) / videoImage.width;
-    image(videoImage, 0, 0, displayWidth, displayHeight);
-    pop();
-
-
-
-    if (keypointsHand.length > 0) {
-        console.log(keypointsHand); // 結果を得る
-    
-        const indexTip = keypointsHand[0][8];
-        console.log(indexTip);
-    
-        ellipse(indexTip.x * displayWidth, indexTip.y * displayHeight, 10);
-      }
-
-
-  }
-
-  // Get a prediction for the current video frame
-  function classifyVideo() {
-    flippedVideo = ml5.flipImage(video)
-    classifier.classify(flippedVideo, gotResult);
-    flippedVideo.remove();
-
-  }
-
-  // When we get a result
-  function gotResult(error, results) {
-    // If there is an error
-    if (error) {
-      console.error(error);
-      return;
-    }
-    // The results are in an array ordered by confidence.
-    // console.log(results[0]);
-    label = results[0].label;
-    // Classifiy again!
-    classifyVideo();
-  }
+  // Draw the label
+  fill(255,255,0);
+  text(label, width * 0.5, height * 0.7);
+}

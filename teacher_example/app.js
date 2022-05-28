@@ -102,7 +102,7 @@ function setup() {
 
 function draw() {
   clear();
-  background(0, 0);
+  background(0,0);
   
   fitCanvas(videoElement);
 
