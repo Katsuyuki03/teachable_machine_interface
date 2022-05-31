@@ -96,6 +96,8 @@ function setup() {
   // Start classifying
   classifyVideo(video);
 
+  colorMode(HSB, 250);
+
   noStroke();
   textSize(200);
   textAlign(CENTER);
@@ -118,8 +120,9 @@ function draw() {
   }
 
   push();
-  stroke(255);
-  strokeWeight(10);
+  frameCount*0.001;
+  stroke(color((frameCount/4) % 250, 200, 250));
+  strokeWeight(6);
   strokeJoin(ROUND);
   noFill();
   beginShape();
