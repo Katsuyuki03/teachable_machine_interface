@@ -28,6 +28,8 @@ function preload() {
 	theShader = new p5.Shader(this.renderer, vertShader, fragShader);
 }
 
+
+
 function setup() {
 	pixelDensity(1);
 	
