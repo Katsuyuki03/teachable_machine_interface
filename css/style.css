@@ -6,4 +6,13 @@ body {
 canvas {
 	display: block;
   }
-  
+
+.wrap{
+	margin-bottom: 20px;
+	height:100px;
+}
+.box{
+	float:left;
+	text-align:center;
+
+}
