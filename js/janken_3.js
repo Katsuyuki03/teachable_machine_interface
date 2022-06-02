@@ -1,6 +1,9 @@
 const CAMERA_WIDTH = 1280;
 const CAMERA_HEIGHT = 720;
 
+const MAX_PARTICLE_COUNT = 70;
+const MAX_TRAIL_COUNT = 30;
+
 // 人差し指の先端のインデックス
 // https://google.github.io/mediapipe/solutions/hands.html
 const INDEX_FINGER_TIP = 8;
