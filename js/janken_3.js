@@ -4,6 +4,13 @@ const CAMERA_HEIGHT = 720;
 const MAX_PARTICLE_COUNT = 70;
 const MAX_TRAIL_COUNT = 30;
 
+var colorScheme = ["#E69F66", "#DF843A", "#D8690F", "#B1560D", "#8A430A"];
+var shaded = true;
+var theShader;
+var shaderTexture;
+var trail = [];
+var particles = [];
+
 // 人差し指の先端のインデックス
 // https://google.github.io/mediapipe/solutions/hands.html
 const INDEX_FINGER_TIP = 8;
