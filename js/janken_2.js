@@ -134,6 +134,6 @@ function draw() {
   pop();
 
   // Draw the label
-  fill(255,255,0);
+  fill(255,255,255);
   text(label, width * 0.5, height * 0.7);
 }
