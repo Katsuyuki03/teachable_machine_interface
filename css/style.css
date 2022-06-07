@@ -16,3 +16,10 @@ canvas {
 	text-align:center;
 
 }
+.button {
+	z-index: 1;
+	}
+.html{
+	z-index: 0;
+};
+	 
