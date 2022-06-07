@@ -7,7 +7,7 @@
 
 html
 {
-    background: #1e1a20;
+    background: #2b262e;
 }
 
 .webgl
@@ -36,3 +36,7 @@ section:nth-child(odd)
 {
     justify-content: flex-end;
 }
+
+a.no-color-change {
+    color: #fff9f9;
+  }
