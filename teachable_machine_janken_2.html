@@ -26,8 +26,8 @@
             video {
                 min-width: 100%; 
                 min-height: 100%;
-                width: auto;
-                height: auto;
+                width: 50%;
+                height: 50%;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -40,13 +40,22 @@
                 left: 50%;
                 transform: translate(-50%,-50%);
             }
+
+            button{
+                position: absolute;
+                z-index: 1;
+            }
         </style>
 
     </head>
 
-    <body>
+    <body>        
+        <button type=“button” onclick="location.href='Prototype_exhibition.html'">
+            topに戻る
+        </button>
         <video id="js-Video" width="1280" height="720"></video>
         <script src="js/janken_2.js"></script>
+
     </body>
 
 </html>
