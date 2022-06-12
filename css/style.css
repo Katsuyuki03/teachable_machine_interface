@@ -26,5 +26,9 @@ canvas {
 .image{
 	width:250px;
 	height:250px;
+
+}
+.btn_hidden{
+	display:none;
 }
 	 

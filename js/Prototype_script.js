@@ -17,7 +17,7 @@ const material = new THREE.MeshToonMaterial({ color: '#ffeded' })
 
 // Meshes
 const mesh1 = new THREE.Mesh(
-    new THREE.TorusGeometry(1, 0.4, 16, 60),
+    new THREE.OctahedronGeometry( 1, 0 ,50),
     material
 )
 const mesh2 = new THREE.Mesh(

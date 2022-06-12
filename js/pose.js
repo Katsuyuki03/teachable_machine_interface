@@ -31,6 +31,9 @@
         for (let i = 0; i < maxPredictions; i++) { // and class labels
             labelContainer.appendChild(document.createElement("div"));
         }
+
+        document.getElementById("label-container").style.fontSize = "26pt";
+        
     }
 
     async function loop(timestamp) {
