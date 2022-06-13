@@ -150,16 +150,16 @@ function draw() {
   fill(255,255,255);
   text(label, width * 0.5, height * 0.6);
 
-  image(img_guu,  200, 700, width* 0.20 , height* 0.20 ,tint(255, 150));
-  image(img_hand,  600, 700, width* 0.20 , height* 0.20 ,tint(255, 150));
-  image(img_tyoki,  1000, 700, width* 0.20 , height* 0.20 ,tint(255, 150));
+  image(img_guu,   CAMERA_WIDTH*0.15, CAMERA_HEIGHT*1.005, width* 0.20 , height* 0.20 ,tint(255, 150));
+  image(img_hand,  CAMERA_WIDTH*0.45,  CAMERA_HEIGHT*1.005, width* 0.20 , height* 0.20 ,tint(255, 150));
+  image(img_tyoki,  CAMERA_WIDTH*0.75, CAMERA_HEIGHT*1.005, width* 0.20 , heigh* 0.20 ,tint(255, 150));
 
   if (label === "グー"){
-     image(img_guu, 200, 700, width* 0.20 , height* 0.20 );
+     image(img_guu,  CAMERA_WIDTH*0.15, CAMERA_HEIGHT*1.005, width* 0.20 , height* 0.20 );
   } else if(label === "パー"){
-     image(img_hand,  600, 700, width* 0.20 , height* 0.20 );
+     image(img_hand,  CAMERA_WIDTH*0.45,  CAMERA_HEIGHT*1.005, width* 0.20 , height* 0.20 );
   } else if(label === "チョキ"){
-    image(img_tyoki,  1000, 700, width* 0.20 , height* 0.20 );
+    image(img_tyoki,  CAMERA_WIDTH*0.75, CAMERA_HEIGHT*1.005, width* 0.20 , height* 0.20 );
   } 
  
 
