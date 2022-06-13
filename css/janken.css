@@ -1,0 +1,9 @@
+.img_1{
+    justify-content: center;
+    flex-direction: row;
+}
+.img_2{
+    width:150px;
+    height:150px;
+    z-index: 1;
+}

@@ -19,6 +19,8 @@ let label = '';
 
 let handsResults;
 
+let img;
+
 const videoElement = document.querySelector('#js-Video');
 
 
@@ -67,6 +69,11 @@ const hands = new Hands({
 // Load the model first
 function preload() {
   classifier = ml5.imageClassifier(imageModelURL + 'model.json');
+
+  img = loadImage("images/janken_guu.png");
+  //img = loadImage("images/janken_hand.png");
+  //img = loadImage("images/janken_tyoki.png");
+
 }
 
 function setup() {
@@ -101,6 +108,8 @@ function setup() {
   noStroke();
   textSize(200);
   textAlign(CENTER);
+
+
 }
   
 
@@ -136,4 +145,10 @@ function draw() {
   // Draw the label
   fill(255,255,255);
   text(label, width * 0.5, height * 0.7);
+
+  if (label === "グー"){
+     image(img,  0, 0, width* 0.5, height* 0.7);
+  }
+ 
+
 }
