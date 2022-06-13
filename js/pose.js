@@ -32,7 +32,7 @@
             labelContainer.appendChild(document.createElement("div"));
         }
 
-        document.getElementById("label-container").style.fontSize = "26pt";
+        document.getElementById("label-container").style.fontSize = "24pt";
         
     }
 
@@ -51,7 +51,7 @@
 
         for (let i = 0; i < maxPredictions; i++) {
             const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                (i === 0 ? "上のポーズ" : "下のポーズ") + ": " + prediction[i].probability.toFixed(2);
             labelContainer.childNodes[i].innerHTML = classPrediction;
         }
 
