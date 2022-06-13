@@ -19,7 +19,11 @@ let label = '';
 
 let handsResults;
 
-let img;
+let img_guu;
+
+let img_hand;
+
+let img_tyoki;
 
 const videoElement = document.querySelector('#js-Video');
 
@@ -70,9 +74,9 @@ const hands = new Hands({
 function preload() {
   classifier = ml5.imageClassifier(imageModelURL + 'model.json');
 
-  img = loadImage("images/janken_guu.png");
-  //img = loadImage("images/janken_hand.png");
-  //img = loadImage("images/janken_tyoki.png");
+  img_guu = loadImage("images/janken_guu.png");
+  img_hand = loadImage("images/janken_hand.png");
+  img_tyoki = loadImage("images/janken_tyoki.png");
 
 }
 
@@ -144,11 +148,19 @@ function draw() {
 
   // Draw the label
   fill(255,255,255);
-  text(label, width * 0.5, height * 0.7);
+  text(label, width * 0.5, height * 0.6);
+
+  image(img_guu,  200, 700, width* 0.20 , height* 0.20 ,tint(255, 150));
+  image(img_hand,  600, 700, width* 0.20 , height* 0.20 ,tint(255, 150));
+  image(img_tyoki,  1000, 700, width* 0.20 , height* 0.20 ,tint(255, 150));
 
   if (label === "グー"){
-     image(img,  0, 0, width* 0.5, height* 0.7);
-  }
+     image(img_guu, 200, 700, width* 0.20 , height* 0.20 );
+  } else if(label === "パー"){
+     image(img_hand,  600, 700, width* 0.20 , height* 0.20 );
+  } else if(label === "チョキ"){
+    image(img_tyoki,  1000, 700, width* 0.20 , height* 0.20 );
+  } 
  
 
 }
