@@ -9,17 +9,38 @@
     <link rel="stylesheet" href="css/controller_style.css">
   </head>
   <body>
-    <h1>Make your own "Teachable Machine" using Transfer Learning with MobileNet v3 in TensorFlow.js using saved graph model from TFHub.</h1>
+    <h1>TFHubから保存されたグラフモデルを使用して、TensorFlow.jsのMobileNetv3でTransferLearningを使用して、独自の「TeachableMachine」を作成します。</h1>
 
     <p id="status">Awaiting TF.js load</p>
 
-    <video id="webcam" autoplay muted></video>
+    <div class="flex-side">
 
-    <button id="enableCam">Enable Webcam</button>
-    <button class="dataCollector" data-1hot="0" data-name="Class 1">Gather Class 1 Data</button>
-    <button class="dataCollector" data-1hot="1" data-name="Class 2">Gather Class 2 Data</button>
-    <button id="train">Train &amp; Predict!</button>
-    <button id="reset">Reset</button>
+
+      <video id="webcam" autoplay muted></video>
+
+      <div class="flex-tate">
+
+      
+          <button id="enableCam">スタート</button>
+          <button class="dataCollector" data-1hot="0" data-name="Class 1">Class 1 Dataを集める</button>
+          <button class="dataCollector" data-1hot="1" data-name="Class 2">Class 2 Dataを集める</button>
+          <button class="dataCollector" data-1hot="2" data-name="Class 3">Class 3 Dataを集める</button>
+          <button class="dataCollector" data-1hot="3" data-name="Class 4">Class 4 Dataを集める</button>
+      </div>
+        
+      <div class="flex-tate">
+
+          <button id="train">トレーニング &amp;結果</button>
+          <button id="reset">リセット</button>
+      </div>
+       
+
+     
+
+
+    </div>
+
+    
 
     <!-- Import TensorFlow.js library -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>

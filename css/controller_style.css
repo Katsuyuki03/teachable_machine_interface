@@ -13,12 +13,13 @@ video {
   display: block;
   margin: 10px;
   background: #000000;
-  width: 640px;
-  height: 480px;
+  width: 400px;
+  height: 320px;
+  transform: scale(-1,1);
 }
 
 button {
-  padding: 10px;
+  padding: 5px;
   float: left;
   margin: 5px 3px 5px 10px;
 }
@@ -29,4 +30,21 @@ button {
 
 #status {
   font-size:150%;
+}
+
+
+.flex-side {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-side-2 {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.flex-tate {
+  display: flex;
+  flex-direction: column;
 }
