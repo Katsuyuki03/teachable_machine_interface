@@ -5,9 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="js/p5.js"></script>
     <!-- Import the webpage's stylesheet -->
     <link rel="stylesheet" href="css/controller_style.css">
+    <script src="js/p5.js"></script>
+
   </head>
   <body>
     <h1>TFHubから保存されたグラフモデルを使用して、TensorFlow.jsのMobileNetv3でTransferLearningを使用して、独自の「TeachableMachine」を作成します。</h1>
@@ -34,10 +35,8 @@
           <button id="train">トレーニング &amp;結果</button>
           <button id="reset">リセット</button>
       </div>
-       
-      <script scr="js/controller_1_canvas.js" class="flex"></script>
-     
-
+      
+      <div id="result"></div>
 
     </div>
 
@@ -45,8 +44,8 @@
 
     <!-- Import TensorFlow.js library -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>
+        <!-- Import the page's JavaScript to do some stuff -->
+    <script  src="js/controller_1_script.js"></script>
 
-    <!-- Import the page's JavaScript to do some stuff -->
-    <script type="module" src="js/controller_1_script.js"></script>
   </body>
 </html>

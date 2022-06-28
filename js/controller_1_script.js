@@ -19,6 +19,8 @@ let trainingDataOutputs = [];
 let examplesCount = [];
 let predict = false;
 
+let result = document.getElementById('result');
+
 
 ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
 TRAIN_BUTTON.addEventListener('click', trainAndPredict);
@@ -195,4 +197,18 @@ function reset() {
   STATUS.innerText = 'No data collected';
 
   console.log('Tensors in memory: ' + tf.memory().numTensors);
+}
+
+
+function setup(){
+  let canvas = createCanvas(300, 300);
+  canvas.parent("result");
+
+}
+
+function draw() {
+
+    background(220);
+    ellipse(width / 4, height / 2, 50, 50);
+
 }
