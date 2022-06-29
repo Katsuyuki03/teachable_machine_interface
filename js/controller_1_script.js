@@ -22,6 +22,10 @@ let predict = false;
 let result = document.getElementById('result');
 
 
+let x = 100;
+
+
+
 ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
 TRAIN_BUTTON.addEventListener('click', trainAndPredict);
 RESET_BUTTON.addEventListener('click', reset);
@@ -203,12 +207,22 @@ function reset() {
 function setup(){
   let canvas = createCanvas(300, 300);
   canvas.parent("result");
+  noStroke();
 
 }
 
 function draw() {
 
     background(220);
-    ellipse(width / 4, height / 2, 50, 50);
 
+    ellipse( x, 200, 50, 50);
+ 
+    x = x + 2 * direction;
+
+        if(x = CLASS_NAMES[highestIndex] = "Class 1" ){ // xが画面の右に来たら
+          direction = -1; // directionを-1に(左へ移動)
+        } else {
+          // if(x = CLASS_NAMES[highestIndex])
+          direction = 1;
+        }
 }
