@@ -22,7 +22,7 @@ let predict = false;
 let result = document.getElementById('result');
 
 
-let x = 100;
+let x = 150;
 
 
 
@@ -219,10 +219,10 @@ function draw() {
  
     x = x + 2 * direction;
 
-        if(x = CLASS_NAMES[highestIndex] = "Class 1" ){ // xが画面の右に来たら
+        if(CLASS_NAMES[highestIndex] === "Class 1" ){ // xが画面の右に来たら
           direction = -1; // directionを-1に(左へ移動)
-        } else {
-          // if(x = CLASS_NAMES[highestIndex])
+        } else if(CLASS_NAMES[highestIndex] === "Class 2"){
+          
           direction = 1;
         }
 }
