@@ -23,7 +23,7 @@ let result = document.getElementById('result');
 
 
 let x = 150;
-
+let direction;
 
 
 ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
@@ -208,7 +208,7 @@ function setup(){
   let canvas = createCanvas(300, 300);
   canvas.parent("result");
   noStroke();
-
+  direction = 1 ; //directionを初期値1に(右へ移動)
 }
 
 function draw() {
@@ -219,9 +219,9 @@ function draw() {
  
     x = x + 2 * direction;
 
-        if(CLASS_NAMES[highestIndex] === "Class 1" ){ // xが画面の右に来たら
+        if(x  === CLASS_NAMES["Class 1"]  ){ // xが画面の右に来たら
           direction = -1; // directionを-1に(左へ移動)
-        } else if(CLASS_NAMES[highestIndex] === "Class 2"){
+        } else if(x  === CLASS_NAMES["Class 2"]){
           
           direction = 1;
         }
