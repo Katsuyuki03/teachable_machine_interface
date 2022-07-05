@@ -23,6 +23,9 @@ let result = document.getElementById('result');
 
 
 let x = 150;
+let y = 150;
+let pose = "Class 1";
+let accuracy =0;
 let direction;
 
 
@@ -179,6 +182,10 @@ function predictLoop() {
       let predictionArray = prediction.arraySync();
 
       STATUS.innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
+    
+      pose = CLASS_NAMES[highestIndex];
+      accuracy = Math.floor(predictionArray[highestIndex] * 100);
+
     });
 
     window.requestAnimationFrame(predictLoop);
@@ -208,21 +215,34 @@ function setup(){
   let canvas = createCanvas(300, 300);
   canvas.parent("result");
   noStroke();
-  direction = 1 ; //directionを初期値1に(右へ移動)
+  direction = 0 ; //directionを初期値1に(右へ移動)
+  vertical = 0 ;
+  reset=0;
 }
 
 function draw() {
 
     background(220);
 
-    ellipse( x, 200, 50, 50);
+    ellipse(  x, y, 50, 50);
  
-    x = x + 2 * direction;
-
-        if(x  === CLASS_NAMES["Class 1"]  ){ // xが画面の右に来たら
-          direction = -1; // directionを-1に(左へ移動)
-        } else if(x  === CLASS_NAMES["Class 2"]){
+    x = x + direction;
+    y = y + vertical;
+        if(pose === "Class 1" && accuracy >= 85){ // xが画面の右に来たら
+          direction = 1; // directionを-1に(左へ移動)
+        
+        }else if(pose === "Class 2" && accuracy >= 85){
+          direction = -1;
           
-          direction = 1;
+        }else if(pose === "Class 3" && accuracy >= 85){ 
+          vertical = 1; 
+        }else if(pose === "Class 4" && accuracy >= 85){
+          vertical = -1;
+        }else{
+          direction = 0;
+          vertical = 0;
         }
+
+        
+    // console.log(pose)
 }
