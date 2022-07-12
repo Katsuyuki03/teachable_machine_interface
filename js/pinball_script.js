@@ -4,8 +4,18 @@
 let leftPaddleSp, rightPaddleSp, ballSp, wallTopSp, wallBottomSp;
 const MAX_SPEED = 10;
 
+
+
+function clickDisplay() {
+document.getElementById("createCanvas").style.visibility ="hidden";
+    const  clickDisplay= document.getElementById("clickDisplay");
+    p2.style.visibility ="visible";
+  }
+
+
 function setup() {
     createCanvas(800, 400);
+    display = none;
     //frameRate(6);
     const w = 10;
     const h = 100;
