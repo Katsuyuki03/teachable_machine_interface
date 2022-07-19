@@ -230,8 +230,8 @@ const MAX_SPEED = 7;
 //   }
 
 //score
- p1Score = 0;
- p2Score = 0;
+ let p1Score = 0;
+ let p2Score = 0;
 
 
 
@@ -280,15 +280,12 @@ function makeSprite(xpos, ypos, w, h, isImmovable, col) {
 }
 
 function draw() {
-    text(p1Score, 125, 100);
-	text(p2Score, 425, 100);
-    background(0);    
-    
+    background(0);     
     update();
-
-
     drawSprites();
-    
+    fill(255);
+    text(p1Score, 200, 100);
+	text(p2Score, 550, 100);
 }
 
 function update() {
