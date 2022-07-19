@@ -51,3 +51,12 @@ a.btn--green:hover {
   background: #00ff84cf;
   border-bottom: 2px solid #00ff84cf;
 }
+.flex-side {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-tate {
+  display: flex;
+  flex-direction: column;
+}
