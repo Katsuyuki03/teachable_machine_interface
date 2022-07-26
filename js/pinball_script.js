@@ -223,17 +223,34 @@
 let leftPaddleSp, rightPaddleSp, ballSp, wallTopSp, wallBottomSp;
 const MAX_SPEED = 7;
 
-// function clickDisplay() {
-// document.getElementById("createCanvas").style.visibility ="hidden";
-//     const  clickDisplay= document.getElementById("clickDisplay");
-//     p2.style.visibility ="visible";
-//   }
+let start;
+let p1Win;
+let p2Win;
+
+function preload() {
+    start = loadImage("images/start.jpeg");
+    p1Win =loadImage("images/p1Win.png");
+    p2Win =loadImage("images/p2Win.png");
+  }
+
+
+function clickDisplay() {
+    page = 1
+  }
+
+
+
 
 //score
  let p1Score = 0;
  let p2Score = 0;
+ let page = 0;
 
 
+ let p1WinImg = document.getElementById("img_p1Win");
+
+
+ let startButton = document.getElementById("btn-start");
 
 
 function setup() {
@@ -249,6 +266,11 @@ function setup() {
 
     noStroke();
     reset=0;
+
+
+    // startButton.addEventListener(`click`, () => {
+    //     p=1
+    // });
 
 
     // 左のパドルスプライト
@@ -280,12 +302,20 @@ function makeSprite(xpos, ypos, w, h, isImmovable, col) {
 }
 
 function draw() {
-    background(0);     
-    update();
-    drawSprites();
-    fill(255);
-    text(p1Score, 200, 100);
-	text(p2Score, 550, 100);
+
+    if (page == 0) {
+        image(start, 0, 0);
+        
+    }else if (page == 1);{
+        background(0);     
+        update();
+        drawSprites();
+        fill(255);
+        text(p1Score, 200, 100);
+        text(p2Score, 550, 100);
+    }
+       
+    
 }
 
 function update() {
@@ -326,27 +356,32 @@ function update() {
         ballSp.position.x = width / 2;
         ballSp.position.y = height / 2;
         ballSp.setSpeed(MAX_SPEED, 0);
-        p1Score = p1Score + 1;
+        p2Score = p2Score + 1;
     }
     // ボールがキャンバス右端から外に出たら、真ん中に再配置し左へ動く
     if (ballSp.position.x > width) {
         ballSp.position.x = width / 2;
         ballSp.position.y = height / 2;
         ballSp.setSpeed(MAX_SPEED, 180);
-        p2Score = p2Score + 1;
+        p1Score = p1Score + 1;
     }
 	//check for winner
-	if (p1Score == 11) {
-		background(0);
-		xSpeed = 0;
-		ySpeed = 0;
-		text(p1Win, 115, 300);
-	} else if (p2Score == 11) {
-		background(0);
-		xSpeed = 0;
-		ySpeed = 0;
-		text(p2Win, 115, 300);
+	if (p1Score == 5) {
+		background(255);
+        image(p1Win, 0, 0);
+        
+        leftPaddleSp = none;
+        rightPaddleSp = none;
+        ballSp = none;
+	
+	} else if (p2Score == 5) {
+		background(255);
+        image(p2Win, 0, 0);
+        leftPaddleSp = none;
+        rightPaddleSp = none;
+        ballSp = none;
 	}
+   
 
 }
 
