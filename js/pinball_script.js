@@ -227,18 +227,24 @@ let start;
 let p1Win;
 let p2Win;
 
+let startButton = document.getElementById("btn-start");
+
 function preload() {
     start = loadImage("images/start.jpeg");
-    p1Win =loadImage("images/p1Win.png");
-    p2Win =loadImage("images/p2Win.png");
+    p1Win = loadImage("images/p1Win.png");
+    p2Win = loadImage("images/p2Win.png");
   }
 
 
 function clickDisplay() {
-    page = 1
+    startButton.addEventListener(`click`, () => {
+        page = 1
+    });
   }
 
-
+function againgame() {
+    document.getElementById("btn-again").click();
+}
 
 
 //score
@@ -247,10 +253,6 @@ function clickDisplay() {
  let page = 0;
 
 
- let p1WinImg = document.getElementById("img_p1Win");
-
-
- let startButton = document.getElementById("btn-start");
 
 
 function setup() {
@@ -268,9 +270,7 @@ function setup() {
     reset=0;
 
 
-    // startButton.addEventListener(`click`, () => {
-    //     p=1
-    // });
+   
 
 
     // 左のパドルスプライト
@@ -303,22 +303,36 @@ function makeSprite(xpos, ypos, w, h, isImmovable, col) {
 
 function draw() {
 
-    if (page == 0) {
-        image(start, 0, 0);
-        
-    }else if (page == 1);{
+    // if (page == 0) {
+    //     image(start, 0, 0);
+
+    //     leftPaddleSp = none;
+    //     rightPaddleSp = none;
+    //     ballSp = none;
+
+    //     if(clickDisplay){
+    //             page = 1
+    //     }
+    // }else if (page == 1);{
         background(0);     
         update();
         drawSprites();
         fill(255);
         text(p1Score, 200, 100);
         text(p2Score, 550, 100);
-    }
+
+    // }
+
        
     
 }
 
 function update() {
+
+
+
+
+
     // パドルがキャンバスから出ないように、上下の動きを制限し、
     // 右パドルを左パドルの動きに同期させる。
     leftPaddleSp.position.y = constrain(mouseY, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
