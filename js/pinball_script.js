@@ -247,13 +247,22 @@ startButton.addEventListener(`click`, () => {
     console.log('startButton がクリックされました');
     isGameset = false;
     // ボールは最初、キャンバス中央から左へ進む
-    ballSp.setSpeed(MAX_SPEED, 0);
+    ballSp.position.x = width / 2;
+    ballSp.position.y = height / 2;
+    ballSp.setSpeed(MAX_SPEED, 180);
+    p1Score = 0;
+    p2Score = 0;
 });
 
 againButton.addEventListener(`click`, () => {
     console.log('againButton がクリックされました');
-    page = 0
-    image(start,0,0)
+    isGameset = false;
+    // ボールは最初、キャンバス中央から左へ進む
+    ballSp.position.x = width / 2;
+    ballSp.position.y = height / 2;
+    ballSp.setSpeed(MAX_SPEED, 180);
+    p1Score = 0;
+    p2Score = 0;
 });
 
 
@@ -321,11 +330,10 @@ function draw() {
         fill(255);
         text(p1Score, 200, 100);
         text(p2Score, 550, 100);
-    }  
+    }
 }
 
 function update() {
-    console.log('call');
 
 
 
@@ -349,7 +357,7 @@ function update() {
         // ボールの芯とパドルの芯のずれ。
         const swing = (ballSp.position.y - leftPaddleSp.position.y) / 3;
         // 左パドルの場合、角度は時計回りに大きくなるので、角度を大きくするにはswingを足す
-        // ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() + sg);
+        ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() + swing);
         print(ballSp.getDirection())
     }
 
@@ -357,7 +365,7 @@ function update() {
     if (ballSp.bounce(rightPaddleSp)) {
         const swing = (ballSp.position.y - rightPaddleSp.position.y) / 3;
         // 右パドルの場合、角度は反時計回りに大きくなるので、角度を大きくするにはswingを引く
-        // ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() - sg);
+        ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() - swing);
     }
 
 
@@ -378,14 +386,20 @@ function update() {
     }
 
     //check for winner
-	if (p1Score == 5) {
+	if (p1Score === 5) {
+        ballSp.setSpeed(0, 0);
         currentImg = p1Win;
         isGameset = true;
+        p1Score = 0;
+        p2Score = 0;
 	}
     
-    if (p2Score == 5) {
+    if (p2Score === 5) {
+        ballSp.setSpeed(0, 0);
         currentImg = p2Win;
         isGameset = true;
+        p1Score = 0;
+        p2Score = 0;
 	}
 }
 
