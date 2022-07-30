@@ -228,6 +228,7 @@ let p1Win;
 let p2Win;
 
 let startButton = document.getElementById("btn-start");
+let againButton = document.getElementById("btn-again");
 
 function preload() {
     start = loadImage("images/start.jpeg");
@@ -240,10 +241,15 @@ function clickDisplay() {
     startButton.addEventListener(`click`, () => {
         page = 1
     });
+    console.log("CLICKED");
   }
 
 function againgame() {
-    document.getElementById("btn-again").click();
+    againButton.addEventListener(`click`, () => {
+        page = 0
+        image(start,0,0)
+    });
+    console.log("CLICKED");
 }
 
 
