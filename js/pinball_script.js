@@ -223,6 +223,11 @@
 let leftPaddleSp, rightPaddleSp, ballSp, wallTopSp, wallBottomSp;
 const MAX_SPEED = 7;
 
+// ゲームが始まっていないかを表す真偽値
+let isGameset = true;
+// ゲームの現在の状態（起動・勝敗など）にあわせて表示される画像が入る変数
+let currentImg;
+
 let start;
 let p1Win;
 let p2Win;
@@ -234,23 +239,22 @@ function preload() {
     start = loadImage("images/start.jpeg");
     p1Win = loadImage("images/p1Win.png");
     p2Win = loadImage("images/p2Win.png");
-  }
-
-
-function clickDisplay() {
-    startButton.addEventListener(`click`, () => {
-        page = 1
-    });
-    console.log("CLICKED");
-  }
-
-function againgame() {
-    againButton.addEventListener(`click`, () => {
-        page = 0
-        image(start,0,0)
-    });
-    console.log("CLICKED");
+    currentImg = start;
 }
+
+
+startButton.addEventListener(`click`, () => {
+    console.log('startButton がクリックされました');
+    isGameset = false;
+    // ボールは最初、キャンバス中央から左へ進む
+    ballSp.setSpeed(MAX_SPEED, 0);
+});
+
+againButton.addEventListener(`click`, () => {
+    console.log('againButton がクリックされました');
+    page = 0
+    image(start,0,0)
+});
 
 
 //score
@@ -291,8 +295,6 @@ function setup() {
     ballSp = makeSprite(width / 2, height / 2, 10, 10, false, color(255));
     // 速くなりすぎないように制限を設ける
     ballSp.maxSpeed = MAX_SPEED;
-    // ボールは最初、キャンバス中央から左へ進む
-    ballSp.setSpeed(MAX_SPEED, -180);
 }
 
 // スプライトを作成し、与えられた引数でプロパティを設定したスプライトを返す
@@ -308,33 +310,22 @@ function makeSprite(xpos, ypos, w, h, isImmovable, col) {
 }
 
 function draw() {
-
-    // if (page == 0) {
-    //     image(start, 0, 0);
-
-    //     leftPaddleSp = none;
-    //     rightPaddleSp = none;
-    //     ballSp = none;
-
-    //     if(clickDisplay){
-    //             page = 1
-    //     }
-    // }else if (page == 1);{
-        background(0);     
+    if (isGameset) {
+        background(255);
+        // 画像の幅と高さは適当
+        image(currentImg, 0, 0, 100, 100);
+    } else {
+        background(0);
         update();
         drawSprites();
         fill(255);
         text(p1Score, 200, 100);
         text(p2Score, 550, 100);
-
-    // }
-
-       
-    
+    }  
 }
 
 function update() {
-
+    console.log('call');
 
 
 
@@ -358,7 +349,7 @@ function update() {
         // ボールの芯とパドルの芯のずれ。
         const swing = (ballSp.position.y - leftPaddleSp.position.y) / 3;
         // 左パドルの場合、角度は時計回りに大きくなるので、角度を大きくするにはswingを足す
-        ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() + swing);
+        // ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() + sg);
         print(ballSp.getDirection())
     }
 
@@ -366,7 +357,7 @@ function update() {
     if (ballSp.bounce(rightPaddleSp)) {
         const swing = (ballSp.position.y - rightPaddleSp.position.y) / 3;
         // 右パドルの場合、角度は反時計回りに大きくなるので、角度を大きくするにはswingを引く
-        ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() - swing);
+        // ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() - sg);
     }
 
 
@@ -375,7 +366,7 @@ function update() {
     if (ballSp.position.x < 0) {
         ballSp.position.x = width / 2;
         ballSp.position.y = height / 2;
-        ballSp.setSpeed(MAX_SPEED, 0);
+        // ballSp.setSpeed(MAX_SPEE0);
         p2Score = p2Score + 1;
     }
     // ボールがキャンバス右端から外に出たら、真ん中に再配置し左へ動く
@@ -385,24 +376,17 @@ function update() {
         ballSp.setSpeed(MAX_SPEED, 180);
         p1Score = p1Score + 1;
     }
-	//check for winner
-	if (p1Score == 5) {
-		background(255);
-        image(p1Win, 0, 0);
-        
-        leftPaddleSp = none;
-        rightPaddleSp = none;
-        ballSp = none;
-	
-	} else if (p2Score == 5) {
-		background(255);
-        image(p2Win, 0, 0);
-        leftPaddleSp = none;
-        rightPaddleSp = none;
-        ballSp = none;
-	}
-   
 
+    //check for winner
+	if (p1Score == 5) {
+        currentImg = p1Win;
+        isGameset = true;
+	}
+    
+    if (p2Score == 5) {
+        currentImg = p2Win;
+        isGameset = true;
+	}
 }
 
 
