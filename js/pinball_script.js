@@ -233,6 +233,8 @@ let start;
 let p1Win;
 let p2Win;
 
+let Leftposition;
+
 let startButton = document.getElementById("btn-start");
 let againButton = document.getElementById("btn-again");
 
@@ -350,12 +352,20 @@ function update() {
 
     // パドルがキャンバスから出ないように、上下の動きを制限し、
     // 右パドルを左パドルの動きに同期させる。
-    leftPaddleSp.position.y = constrain(mouseX, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+    leftPaddleSp.position.y = constrain(Leftposition, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
     rightPaddleSp.position.y = constrain(mouseY, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
 
+    // function keyPressed() {
+    //     if ((key == "A") || (key == "a")) {
+    //         leftPaddleSp.height+10
+    //         Leftposition = true;
+    //     }else if((key == "z") || (key == "Z")){
+    //         leftPaddleSp.height-10
+    //         Leftposition = true;
+    //     }
+    // }
 
 
-    
 
     // ボールは上の壁に当たったら跳ね返る
     ballSp.bounce(wallTopSp);
