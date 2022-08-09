@@ -237,9 +237,9 @@ let startButton = document.getElementById("btn-start");
 let againButton = document.getElementById("btn-again");
 
 function preload() {
-    start = loadImage("images/start.jpeg");
-    p1Win = loadImage("images/p1Win.png");
-    p2Win = loadImage("images/p2Win.png");
+    start = loadImage("images/start.jpg");
+    p1Win = loadImage("images/p1Win.jpg");
+    p2Win = loadImage("images/p2Win.jpg");
     currentImg = start;
 }
 
@@ -329,7 +329,7 @@ function draw() {
         if (isGameset) {
             background(255);
             // 画像の幅と高さは適当
-            image(currentImg, 0, 0, 100, 100);
+            image(currentImg, 0, 0, 800, 400);
         } else {
         background(0);     
         update();
@@ -350,8 +350,12 @@ function update() {
 
     // パドルがキャンバスから出ないように、上下の動きを制限し、
     // 右パドルを左パドルの動きに同期させる。
-    leftPaddleSp.position.y = constrain(mouseY, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+    leftPaddleSp.position.y = constrain(mouseX, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
     rightPaddleSp.position.y = constrain(mouseY, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+
+
+
+    
 
     // ボールは上の壁に当たったら跳ね返る
     ballSp.bounce(wallTopSp);
