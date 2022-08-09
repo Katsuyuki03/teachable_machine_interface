@@ -233,7 +233,10 @@ let start;
 let p1Win;
 let p2Win;
 
-let Leftposition;
+
+
+let Leftp = 200;
+let Rightp = 200;
 
 let startButton = document.getElementById("btn-start");
 let againButton = document.getElementById("btn-again");
@@ -344,6 +347,23 @@ function draw() {
    
 }
 
+    function keyPressed() {
+        if ((key == "A") || (key == "a")) {
+         
+            Leftp= Leftp - 50
+        }else if((key == "Z") || (key == "z")){
+            Leftp= Leftp + 50
+        }
+
+        if ((key == "k") || (key == "K")) {
+         
+            Rightp= Rightp- 50
+        }else if((key == "m") || (key == "M")){
+            Rightp= Rightp + 50
+        }
+
+    }
+
 function update() {
 
 
@@ -352,18 +372,10 @@ function update() {
 
     // パドルがキャンバスから出ないように、上下の動きを制限し、
     // 右パドルを左パドルの動きに同期させる。
-    leftPaddleSp.position.y = constrain(Leftposition, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
-    rightPaddleSp.position.y = constrain(mouseY, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+    leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
 
-    // function keyPressed() {
-    //     if ((key == "A") || (key == "a")) {
-    //         leftPaddleSp.height+10
-    //         Leftposition = true;
-    //     }else if((key == "z") || (key == "Z")){
-    //         leftPaddleSp.height-10
-    //         Leftposition = true;
-    //     }
-    // }
+    rightPaddleSp.position.y = constrain(Rightp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+
 
 
 
