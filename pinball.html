@@ -17,10 +17,8 @@
 
   </head>
   <body>
-    <a id="btn-start" class="btn btn--green" >スタート</a>
-    <a id="btn-again" class="btn btn--green" >もう一度遊ぶ</a>
         <!-- Import the page's JavaScript to do some stuff -->
-        <p id="status">Awaiting TF.js load</p>
+        
 
         <div class="flex-side">
 
@@ -33,13 +31,18 @@
               <button id="enableCam">スタート</button>
               
               <button class="dataCollector" data-1hot="0" data-name="Class 1"> アカ操作・上</button>
+              <img src="images/player1.jpg" >
               <button class="dataCollector" data-1hot="1" data-name="Class 2">アカ操作・下</button>
-              <button class="dataCollector" data-1hot="2" data-name="Class 3">ピンク操作・上</button>
-              <button class="dataCollector" data-1hot="3" data-name="Class 4">ピンク操作・下</button>
+              
           </div>
-            
           <div class="flex-tate">
-    
+              <button class="dataCollector" data-1hot="2" data-name="Class 3">ピンク操作・上</button>
+              <img src="images/player2.jpg" >
+              <button class="dataCollector" data-1hot="3" data-name="Class 4">ピンク操作・下</button>
+            
+          </div>
+          <div class="flex-tate">
+              <p id="status">Awaiting TF.js load</p>
               <button id="train">トレーニング &amp;結果</button>
               <button id="reset">リセット</button>
           </div>
@@ -50,18 +53,15 @@
     <!-- Import TensorFlow.js library -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>
 
-    <div class="flex-side">
-      <div class="flex-tate">
-    
-        <img src="images/player1.jpg" >
+    <div class="flex-tate">
+
+      <div class="flex-side">
+        <a id="btn-start" class="btn btn--green" >スタート</a>
+        <a id="btn-again" class="btn btn--green" >もう一度遊ぶ</a>
       </div>
-      
+
       <script  src="js/pinball_script.js"></script>
-      <div class="flex-tate">
-    
-        <img src="images/player2.jpg" >
-      </div>
-    
+      
     </div>
     
 
