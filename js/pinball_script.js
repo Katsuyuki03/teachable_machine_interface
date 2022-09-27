@@ -254,7 +254,7 @@ startButton.addEventListener(`click`, () => {
     // ボールは最初、キャンバス中央から左へ進む
     ballSp.position.x = width / 2;
     ballSp.position.y = height / 2;
-    ballSp.setSpeed(MAX_SPEED, 180);
+    ballSp.setSpeed(MAX_SPEED, 160);
     p1Score = 0;
     p2Score = 0;
 });
@@ -265,7 +265,7 @@ againButton.addEventListener(`click`, () => {
     // ボールは最初、キャンバス中央から左へ進む
     ballSp.position.x = width / 2;
     ballSp.position.y = height / 2;
-    ballSp.setSpeed(MAX_SPEED, 180);
+    ballSp.setSpeed(MAX_SPEED, 160);
     p1Score = 0;
     p2Score = 0;
 });
@@ -348,6 +348,7 @@ function draw() {
 }
 
     function keyPressed() {
+      
         if ((key == "A") || (key == "a")) {
          
             Leftp= Leftp - 50
@@ -367,7 +368,20 @@ function draw() {
 function update() {
 
 
-
+  if(pose === "Class 1" && accuracy >= 85){ 
+     
+  
+  }else if(pose === "Class 2" && accuracy >= 85){
+    
+    
+  }else if(pose === "Class 3" && accuracy >= 85){ 
+     
+  }else if(pose === "Class 4" && accuracy >= 85){
+    
+  }else{
+    direction = 0;
+    vertical = 0;
+  }
 
 
     // パドルがキャンバスから出ないように、上下の動きを制限し、
