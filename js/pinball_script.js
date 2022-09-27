@@ -360,16 +360,18 @@ function draw() {
 
 function update() {
 
-  document.addEventListener('keypress', keypress_ivent);
+ 
 
 
   if(pose === "Class 1" && accuracy >= 85){ 
-    function keypress_ivent(e) {
-    if(e.key === 'a' || e.key === 'A'){
-      //Aキーが押された時の処理
-    }
+    document.body.addEventListener("keydown",
+    event => {
+        if (event.key == "a" || event.key == "A") {
+           
+        }
+    });
      
-  }
+  
   }else if(pose === "Class 2" && accuracy >= 85){
     
     
