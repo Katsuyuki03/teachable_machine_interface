@@ -24,11 +24,7 @@ button {
   margin: 5px 3px 5px 10px;
 }
 
-canvas {
-  display: block;
-  width: 300px;
-  height: 300px;
-}
+
 
 .removed {
   display: none;
@@ -52,4 +48,11 @@ canvas {
 .flex-tate {
   display: flex;
   flex-direction: column;
+}
+.start-btn{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: 0 auto;
+  max-width: 1060;
 }
