@@ -232,16 +232,26 @@ function preload() {
   currentImg = start;
 }
 
-const bar = new ProgressBar.Line(container, {
-  strokeWidth: 1,
-  easing: "easeInOut",
-  duration: 1400,
-  color: "#FFEA82",
-  trailColor: "#eee",
-  trailWidth: 1,
-  svgStyle: {width: "100%", height: "100%"}
-});
-bar.animate(1.0);
+// プログレスバー代案1
+// const bar = new ProgressBar.Line(container, {
+//   strokeWidth: 1,
+//   easing: "easeInOut",
+//   duration: 1400,
+//   color: "#FFEA82",
+//   trailColor: "#eee",
+//   trailWidth: 1,
+//   svgStyle: {width: "100%", height: "100%"}
+// });
+// bar.animate(1.0);
+// プログレスバー代案2
+var p2_value = 0;
+function proc2()
+{
+	if (p2_value  < 100 ) {
+		document.getElementById('p2').style.width = ++p2_value + '%';
+		setTimeout(proc2, 100);
+	}
+};
 
 // let processor = {
 //   timerCallback: function() {
