@@ -244,14 +244,14 @@ function preload() {
 // });
 // bar.animate(1.0);
 // プログレスバー代案2
-var p2_value = 0;
-function proc2()
-{
-	if (p2_value  < 100 ) {
-		document.getElementById('p2').style.width = ++p2_value + '%';
-		setTimeout(proc2, 100);
-	}
-};
+// var p2_value = 0;
+// function proc2()
+// {
+// 	if (p2_value  < 100 ) {
+// 		document.getElementById('p2').style.width = ++p2_value + '%';
+// 		setTimeout(proc2, 100);
+// 	}
+// };
 
 // let processor = {
 //   timerCallback: function() {
