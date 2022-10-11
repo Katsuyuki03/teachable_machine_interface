@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Experiments</title>
+  <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css"> -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Canvas Experiments</h1>
+
+  <div id="js-video-Container" class="video-Container">
+    <div class="js-video-Capture video-Capture"></div>
+    <div class="js-video-Capture video-Capture"></div>
+  </div>
+
+  <div>
+    <button id="enableCam">スタート</button>
+  </div>
+
+  <ul class="canvas_List">
+    <li>
+      <canvas class="js-canvas_Video" width="224" height="224"></canvas>
+      <button class="dataCollector" data-1hot="0" data-name="Class 1"> ピンク操作・上</button>
+      <div class="rivers">サンプル数: <span class="js-canvas_Sample">0</span></div>
+    </li>
+    <li>
+      <canvas class="js-canvas_Video" width="224" height="224"></canvas>
+      <button class="dataCollector" data-1hot="1" data-name="Class 2">ピンク操作・下</button>
+      <div class="rivers">サンプル数: <span class="js-canvas_Sample">0</span></div>
+    </li>
+    <li>
+      <canvas class="js-canvas_Video" width="224" height="224"></canvas>
+      <button class="dataCollector" data-1hot="2" data-name="Class 3">アカ操作・上</button>
+      <div class="rivers">サンプル数: <span class="js-canvas_Sample">0</span></div>
+    </li>
+    <li>
+      <canvas class="js-canvas_Video" width="224" height="224"></canvas>
+      <button class="dataCollector" data-1hot="3" data-name="Class 4">アカ操作・下</button>
+      <div class="rivers">サンプル数: <span class="js-canvas_Sample">0</span></div>
+    </li>
+  </ul>
+
+  <div>
+    <div class="js-status-Player"></div>
+    <div class="js-status-Player"></div>
+  </div>
+
+  <div class="flex-tate">
+    <button id="train">トレーニング &amp;結果</button>
+    <button id="reset">リセット</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
