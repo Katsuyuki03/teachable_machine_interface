@@ -16,7 +16,7 @@ const contexts = [];
 const videoContainer = document.querySelector('#js-video-Container');
 const video = document.createElement('video');
 
-videoContainer.appendChild(video)
+// videoContainer.appendChild(video)
 
 const dataCollectorButtons = document.querySelectorAll('.dataCollector');
 const playerStatus = document.querySelectorAll('.js-status-Player');

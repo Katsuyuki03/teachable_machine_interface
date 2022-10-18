@@ -4,22 +4,6 @@ const ENABLE_CAM_BUTTON = document.getElementById('enableCam');
 const RESET_BUTTON = document.getElementById('reset');
 const TRAIN_BUTTON = document.getElementById('train');
 
-// すべての canvas 要素を取得する
-const canvasList = document.querySelectorAll('.js-canvas_Video');
-// 解析用の canvas は 0, 2 番目の canvas にする（0と1、2と3は同じ画像なので、2つを解析すればいい）
-const predictCanvases = [canvasList[0], canvasList[2]];
-const contexts = [];
-
-// video 要素をつくる
-const videoContainer = document.querySelector('#js-video-Container');
-const video = document.createElement('video');
-
-videoContainer.appendChild(video)
-
-const dataCollectorButtons = document.querySelectorAll('.dataCollector');
-const playerStatus = document.querySelectorAll('.js-status-Player');
-const canvasSample = document.querySelectorAll('.js-canvas_Sample');
-
 const MOBILE_NET_INPUT_WIDTH = 224;
 const MOBILE_NET_INPUT_HEIGHT = 224;
 
@@ -32,98 +16,37 @@ let videoPlaying = false;
 let trainingDataInputs = [];
 let trainingDataOutputs = [];
 let examplesCount = [];
-// let predict = false;
-let model = tf.sequential();
+let predict = false;
 
-const updateCanvas = () => {
-  contexts.forEach((context, index) => {
-    const dw = video.videoWidth * 0.5;
-    const dx = dw * ([2, 3].includes(index) ? 1 : 0);
-    const dh = dw;
-    const dy = (video.videoHeight - dw) * 0.5;
-    
-    context.drawImage(
-      video,
-      dx,
-      dy,
-      dw,
-      dh,
-      0,
-      0,
-      canvasList.item(index).width,
-      canvasList.item(index).height
-    );
-  });
-
-  requestAnimationFrame(updateCanvas);
-};
-
-const dataGatherLoop = (index) => {
-  // 何番目の canvas を学習のリソースにするか
-  const canvasIndex = index;
-
-  const loop = () => {
-    if (!video.paused && gatherDataState !== STOP_DATA_GATHER) {
-      const imageFeatures = tf.tidy(() => {
-        const videoFrameAsTensor = tf.browser.fromPixels(canvasList[canvasIndex]);
-        const resizedTensorFrame = tf.image.resizeBilinear(
-          videoFrameAsTensor,
-          [MOBILE_NET_INPUT_HEIGHT, MOBILE_NET_INPUT_WIDTH],
-          true
-        );
-        const normalizedTensorFrame = resizedTensorFrame.div(255);
-        
-        return mobilenet.predict(normalizedTensorFrame.expandDims()).squeeze();
-      });
-
-      trainingDataInputs.push(imageFeatures);
-      trainingDataOutputs.push(gatherDataState);
-
-      // Intialize array index element if currently undefined.
-      if (examplesCount[gatherDataState] === undefined) {
-        examplesCount[gatherDataState] = 0;
-      }
-
-      examplesCount[gatherDataState]++;
-
-      canvasSample[canvasIndex].innerText = examplesCount[canvasIndex];
-
-      window.requestAnimationFrame(loop);
-    }
-  };
-
-  window.requestAnimationFrame(loop);
-};
-// function dataGatherLoop() {
-//   if (videoPlaying && gatherDataState !== STOP_DATA_GATHER) {
-//     let imageFeatures = tf.tidy(function() {
-//       let videoFrameAsTensor = tf.browser.fromPixels(VIDEO);
-//       let resizedTensorFrame = tf.image.resizeBilinear(videoFrameAsTensor, [MOBILE_NET_INPUT_HEIGHT,MOBILE_NET_INPUT_WIDTH], true);
-//       let normalizedTensorFrame = resizedTensorFrame.div(255);
-//       return mobilenet.predict(normalizedTensorFrame.expandDims()).squeeze();
-//     });
-
-//     trainingDataInputs.push(imageFeatures);
-//     trainingDataOutputs.push(gatherDataState);
-
-//     // Intialize array index element if currently undefined.
-//     if (examplesCount[gatherDataState] === undefined) {
-//       examplesCount[gatherDataState] = 0;
-//     }
-//     examplesCount[gatherDataState]++;
-
-//     STATUS.innerText = '';
-//     for (let n = 0; n < CLASS_NAMES.length; n++) {
-//       STATUS.innerText += CLASS_NAMES[n] + ' data count: ' + examplesCount[n] + '. ';
-//     }
-//     window.requestAnimationFrame(dataGatherLoop);
-//   }
-// }
-// let result = document.getElementById('result');
+let result = document.getElementById('result');
 
 let pose = "Class 1";
 let accuracy =0;
 let direction;
+
+// すべての canvas 要素を取得する
+const canvasList = document.querySelectorAll('.js-canvas_Video');
+// 解析用の canvas は 0, 2 番目の canvas にする（0と1、2と3は同じ画像なので、2つを解析すればいい）
+const predictCanvases = [canvasList[0], canvasList[2]];
+const contexts = [];
+
+// video 要素をつくる
+const videoContainer = document.querySelector('#js-video-Container');
+const video = document.createElement('video');
+
+videoContainer.appendChild(video)
+
+ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
+TRAIN_BUTTON.addEventListener('click', trainAndPredict);
+RESET_BUTTON.addEventListener('click', reset);
+
+let dataCollectorButtons = document.querySelectorAll('button.dataCollector');
+for (let i = 0; i < dataCollectorButtons.length; i++) {
+  dataCollectorButtons[i].addEventListener('mousedown', gatherDataForClass);
+  dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
+  // Populate the human readable names for classes.
+  CLASS_NAMES.push(dataCollectorButtons[i].getAttribute('data-name'));
+}
 
 /**
  * Loads the MobileNet model and warms it up so ready for use.
@@ -140,21 +63,11 @@ async function loadMobileNetFeatureModel() {
     console.log(answer.shape);
   });
 }
-
-canvasList.forEach((canvas) => {
-  const context = canvas.getContext('2d');
-
-  contexts.push(context);
-});
-
-video.autoplay = true;
-video.mutd = true; // 消音にする
-video.playsInline = true;
-
+  
 // Call the function immediately to start loading.
 loadMobileNetFeatureModel();
 
-
+let model = tf.sequential();
 
 model.add(tf.layers.dense({inputShape: [1024], units: 128, activation: 'relu'}));
 model.add(tf.layers.dense({units: CLASS_NAMES.length, activation: 'softmax'}));
@@ -173,60 +86,27 @@ model.compile({
 });
 
 
-/**
- * Handle Data Gather for button mouseup/mousedown.
- **/
-// function gatherDataForClass() {
-//   let classNumber = parseInt(this.getAttribute('data-1hot'));
-//   gatherDataState = (gatherDataState === STOP_DATA_GATHER) ? classNumber : STOP_DATA_GATHER;
-//   dataGatherLoop();
-// }
-const gatherDataForClass = (e) => {
-  const classNumber = parseInt(e.target.getAttribute('data-1hot'));
-  // 押下されたボタンが何番目かの数値
-  const index = [...dataCollectorButtons].findIndex(
-    (dataCollectorButton) => dataCollectorButton === e.target
-  );
-  
-  gatherDataState = (gatherDataState === STOP_DATA_GATHER) ? classNumber : STOP_DATA_GATHER;
-  dataGatherLoop(index);
-}
 
 function hasGetUserMedia() {
   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
 
-// function enableCam() {
-//   if (hasGetUserMedia()) {
-//     // getUsermedia parameters.
-//     const constraints = {
-//       video: true,
-//       width: 640,
-//       height: 480,
-//     };
 
-//     // Activate the webcam stream.
-//     navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-//       VIDEO.srcObject = stream;
-//       VIDEO.addEventListener('loadeddata', function() {
-//         videoPlaying = true;
-//         ENABLE_CAM_BUTTON.classList.add('removed');
-//       });
-//     });
-//   } else {
-//     console.warn('getUserMedia() is not supported by your browser');
-//   }
-// }
-
-const enableCam = () => {
+function enableCam() {
   if (hasGetUserMedia()) {
-    navigator.mediaDevices.getUserMedia({
-      audio: false,
+    // getUsermedia parameters.
+    const constraints = {
       video: true,
-    }).then((stream) => {
-      video.srcObject = stream;
-      video.addEventListener('loadeddata', () => {
-        requestAnimationFrame(updateCanvas);
+      width: 640,
+      height: 480
+    };
+
+    // Activate the webcam stream.
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+      VIDEO.srcObject = stream;
+      VIDEO.addEventListener('loadeddata', function() {
+        videoPlaying = true;
+        ENABLE_CAM_BUTTON.classList.add('removed');
       });
     });
   } else {
@@ -234,40 +114,51 @@ const enableCam = () => {
   }
 }
 
-// async function trainAndPredict() {
-//   predict = false;
-//   tf.util.shuffleCombo(trainingDataInputs, trainingDataOutputs);
-  
-//   let outputsAsTensor = tf.tensor1d(trainingDataOutputs, 'int32');
-//   let oneHotOutputs = tf.oneHot(outputsAsTensor, CLASS_NAMES.length);
-//   let inputsAsTensor = tf.stack(trainingDataInputs);
+/**
+ * Handle Data Gather for button mouseup/mousedown.
+ **/
+function gatherDataForClass() {
+  let classNumber = parseInt(this.getAttribute('data-1hot'));
+  gatherDataState = (gatherDataState === STOP_DATA_GATHER) ? classNumber : STOP_DATA_GATHER;
+  dataGatherLoop();
+}
 
-//   let results = await model.fit(inputsAsTensor, oneHotOutputs, {shuffle: true, batchSize: 5, epochs: 10,
-//   callbacks: {onEpochEnd: logProgress} });
+function dataGatherLoop() {
+  if (videoPlaying && gatherDataState !== STOP_DATA_GATHER) {
+    let imageFeatures = tf.tidy(function() {
+      let videoFrameAsTensor = tf.browser.fromPixels(VIDEO);
+      let resizedTensorFrame = tf.image.resizeBilinear(videoFrameAsTensor, [MOBILE_NET_INPUT_HEIGHT,MOBILE_NET_INPUT_WIDTH], true);
+      let normalizedTensorFrame = resizedTensorFrame.div(255);
+      return mobilenet.predict(normalizedTensorFrame.expandDims()).squeeze();
+    });
 
-//   outputsAsTensor.dispose();
-//   oneHotOutputs.dispose();
-//   inputsAsTensor.dispose();
-//   predict = true;
-//   predictLoop();
-// }
-const trainAndPredict = async () => {
+    trainingDataInputs.push(imageFeatures);
+    trainingDataOutputs.push(gatherDataState);
+
+    // Intialize array index element if currently undefined.
+    if (examplesCount[gatherDataState] === undefined) {
+      examplesCount[gatherDataState] = 0;
+    }
+    examplesCount[gatherDataState]++;
+
+    STATUS.innerText = '';
+    for (let n = 0; n < CLASS_NAMES.length; n++) {
+      STATUS.innerText += CLASS_NAMES[n] + ' data count: ' + examplesCount[n] + '. ';
+    }
+    window.requestAnimationFrame(dataGatherLoop);
+  }
+}
+
+
+async function trainAndPredict() {
   predict = false;
-
   tf.util.shuffleCombo(trainingDataInputs, trainingDataOutputs);
-  
-  const outputsAsTensor = tf.tensor1d(trainingDataOutputs, 'int32');
-  const oneHotOutputs = tf.oneHot(outputsAsTensor, CLASS_NAMES.length);
-  const inputsAsTensor = tf.stack(trainingDataInputs);
+  let outputsAsTensor = tf.tensor1d(trainingDataOutputs, 'int32');
+  let oneHotOutputs = tf.oneHot(outputsAsTensor, CLASS_NAMES.length);
+  let inputsAsTensor = tf.stack(trainingDataInputs);
 
-  await model.fit(inputsAsTensor, oneHotOutputs, {
-    shuffle: true,
-    batchSize: 5,
-    epochs: 10,
-    callbacks: {
-      onEpochEnd: logProgress
-    },
-  });
+  let results = await model.fit(inputsAsTensor, oneHotOutputs, {shuffle: true, batchSize: 5, epochs: 10,
+  callbacks: {onEpochEnd: logProgress} });
 
   outputsAsTensor.dispose();
   oneHotOutputs.dispose();
@@ -276,63 +167,32 @@ const trainAndPredict = async () => {
   predictLoop();
 }
 
-// function logProgress(epoch, logs) {
-//   console.log('Data for epoch ' + epoch, logs);
-// }
-
-// function predictLoop() {
-//   if (predict) {
-//     tf.tidy(function() {
-//       let videoFrameAsTensor = tf.browser.fromPixels(VIDEO).div(255);
-//       let resizedTensorFrame = tf.image.resizeBilinear(videoFrameAsTensor,[MOBILE_NET_INPUT_HEIGHT,
-//       MOBILE_NET_INPUT_WIDTH], true);
-
-//       let imageFeatures = mobilenet.predict(resizedTensorFrame.expandDims());
-//       let prediction = model.predict(imageFeatures).squeeze();
-//       let highestIndex = prediction.argMax().arraySync();
-//       let predictionArray = prediction.arraySync();
-
-//       STATUS.innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
-    
-//       pose = CLASS_NAMES[highestIndex];
-//       accuracy = Math.floor(predictionArray[highestIndex] * 100);
-
-//     });
-
-//     window.requestAnimationFrame(predictLoop);
-//   }
-// }
-const logProgress = (epoch, logs) => {
+function logProgress(epoch, logs) {
   console.log('Data for epoch ' + epoch, logs);
 }
 
-const predictLoop = () => {
+function predictLoop() {
   if (predict) {
-    tf.tidy(function () {
-      predictCanvases.forEach((canvas, index) => {
-        const videoFrameAsTensor = tf.browser.fromPixels(canvas).div(255);
-        const resizedTensorFrame = tf.image.resizeBilinear(
-          videoFrameAsTensor,
-          [MOBILE_NET_INPUT_HEIGHT, MOBILE_NET_INPUT_WIDTH],
-          true
-        );
+    tf.tidy(function() {
+      let videoFrameAsTensor = tf.browser.fromPixels(VIDEO).div(255);
+      let resizedTensorFrame = tf.image.resizeBilinear(videoFrameAsTensor,[MOBILE_NET_INPUT_HEIGHT,
+      MOBILE_NET_INPUT_WIDTH], true);
 
-        const imageFeatures = mobilenet.predict(resizedTensorFrame.expandDims());
-        const prediction = model.predict(imageFeatures).squeeze();
-        const highestIndex = prediction.argMax().arraySync();
-        const predictionArray = prediction.arraySync();
+      let imageFeatures = mobilenet.predict(resizedTensorFrame.expandDims());
+      let prediction = model.predict(imageFeatures).squeeze();
+      let highestIndex = prediction.argMax().arraySync();
+      let predictionArray = prediction.arraySync();
 
-        playerStatus[index].innerText = `Player${index + 1} Prediction: ${CLASS_NAMES[highestIndex]} with ${Math.floor(predictionArray[highestIndex] * 100)}% confidence`;
+      STATUS.innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
+    
+      pose = CLASS_NAMES[highestIndex];
+      accuracy = Math.floor(predictionArray[highestIndex] * 100);
 
-        pose = CLASS_NAMES[highestIndex];
-        accuracy = Math.floor(predictionArray[highestIndex] * 100);
-      });
     });
 
     window.requestAnimationFrame(predictLoop);
   }
 }
-
 
 /**
  * Purge data and start over. Note this does not dispose of the loaded
@@ -342,17 +202,12 @@ const predictLoop = () => {
 function reset() {
   predict = false;
   examplesCount.length = 0;
-
   for (let i = 0; i < trainingDataInputs.length; i++) {
     trainingDataInputs[i].dispose();
   }
-
   trainingDataInputs.length = 0;
   trainingDataOutputs.length = 0;
-  // STATUS.innerText = 'No data collected';
-  canvasSample.forEach((cs) => {
-    cs.innerText = 0;
-  });
+  STATUS.innerText = 'No data collected';
 
   console.log('Tensors in memory: ' + tf.memory().numTensors);
 
@@ -360,19 +215,9 @@ function reset() {
   y = 150 ;
 }
 
-ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
-TRAIN_BUTTON.addEventListener('click', trainAndPredict);
-RESET_BUTTON.addEventListener('click', reset);
 
-for (let i = 0; i < dataCollectorButtons.length; i++) {
-  dataCollectorButtons[i].addEventListener('mousedown', gatherDataForClass);
-  dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
-  // Populate the human readable names for classes.
-  CLASS_NAMES.push(dataCollectorButtons[i].getAttribute('data-name'));
-}
-
-//「ポン」(卓球ゲーム)もどき
-// マウスで両方のパドルを走査する
+// //「ポン」(卓球ゲーム)もどき
+// // マウスで両方のパドルを走査する
 
 // let leftPaddleSp, rightPaddleSp, ballSp, wallTopSp, wallBottomSp;
 // const MAX_SPEED = 7;
@@ -392,12 +237,12 @@ for (let i = 0; i < dataCollectorButtons.length; i++) {
 // let startButton = document.getElementById("btn-start");
 // let againButton = document.getElementById("btn-again");
 
-// // function preload() {
-// //   start = loadImage("images/start.jpg");
-// //   p1Win = loadImage("images/p1Win.jpg");
-// //   p2Win = loadImage("images/p2Win.jpg");
-// //   currentImg = start;
-// // }
+// function preload() {
+//   start = loadImage("images/start.jpg");
+//   p1Win = loadImage("images/p1Win.jpg");
+//   p2Win = loadImage("images/p2Win.jpg");
+//   currentImg = start;
+// }
 
 // // プログレスバー代案1
 // // const bar = new ProgressBar.Line(container, {
@@ -667,6 +512,3 @@ for (let i = 0; i < dataCollectorButtons.length; i++) {
    
 
 // }
-
-
-
