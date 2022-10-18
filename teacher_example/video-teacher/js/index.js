@@ -24,6 +24,7 @@ const canvasSample = document.querySelectorAll('.js-canvas_Sample');
 
 let mobilenet = undefined;
 let gatherDataState = STOP_DATA_GATHER;
+let videoPlaying = false;
 let trainingDataInputs = [];
 let trainingDataOutputs = [];
 let examplesCount = [];
