@@ -1,4 +1,3 @@
-const STATUS = document.getElementById('status');
 const ENABLE_CAM_BUTTON = document.getElementById('enableCam');
 const RESET_BUTTON = document.getElementById('reset');
 const TRAIN_BUTTON = document.getElementById('train');
@@ -19,7 +18,7 @@ const contexts = [];
 const videoContainer = document.querySelector('#js-video-Container');
 const video = document.createElement('video');
 
-videoContainer.appendChild(video)
+// videoContainer.appendChild(video)
 
 const dataCollectorButtons = document.querySelectorAll('.dataCollector');
 const playerStatus = document.querySelectorAll('.js-status-Player');
@@ -263,18 +262,27 @@ const trainAndPredict = async () => {
 /**
  * Loads the MobileNet model and warms it up so ready for use.
  **/
- async function loadMobileNetFeatureModel() {
-  const URL ='https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/feature_vector/5/default/1';
-      
-  mobilenet = await tf.loadGraphModel(URL, {fromTFHub: true});
-  STATUS.innerText = 'MobileNet v3 loaded successfully!';
+ const loadMobileNetFeatureModel = async () => {
+  const URL = 'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/feature_vector/5/default/1';
   
-  // Warm up the model by passing zeros through it once.
-  tf.tidy(function () {
-    let answer = mobilenet.predict(tf.zeros([1, MOBILE_NET_INPUT_HEIGHT, MOBILE_NET_INPUT_WIDTH, 3]));
-    console.log(answer.shape);
+  mobilenet = await tf.loadGraphModel(URL, { fromTFHub: true });
+
+  tf.tidy(() => {
+    mobilenet.predict(tf.zeros([1, MOBILE_NET_INPUT_HEIGHT, MOBILE_NET_INPUT_WIDTH, 3]));
   });
-}
+};
+//  async function loadMobileNetFeatureModel() {
+//   const URL ='https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/feature_vector/5/default/1';
+      
+//   mobilenet = await tf.loadGraphModel(URL, {fromTFHub: true});
+//   STATUS.innerText = 'MobileNet v3 loaded successfully!';
+  
+//   // Warm up the model by passing zeros through it once.
+//   tf.tidy(function () {
+//     let answer = mobilenet.predict(tf.zeros([1, MOBILE_NET_INPUT_HEIGHT, MOBILE_NET_INPUT_WIDTH, 3]));
+//     console.log(answer.shape);
+//   });
+// }
 
 canvasList.forEach((canvas) => {
   const context = canvas.getContext('2d');
@@ -296,6 +304,10 @@ canvasList.forEach((canvas) => {
   trainingDataInputs.length = 0;
   trainingDataOutputs.length = 0;
   STATUS.innerText = 'No data collected';
+
+  canvasSample.forEach((cs) => {
+    cs.innerText = 0;
+  });
 
   console.log('Tensors in memory: ' + tf.memory().numTensors);
 
