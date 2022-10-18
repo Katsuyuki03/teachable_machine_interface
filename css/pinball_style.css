@@ -64,3 +64,33 @@ a.btn--green:hover {
   width: 5px;
   height: 8px;
 }
+.video-Container {
+  display: inline-block;
+  position: relative;
+  transform: scale(-1,1);
+}
+
+.video-Capture {
+  border: solid 1px red;
+  width: 50%;
+  padding: 50% 0 0;
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.video-Capture:nth-child(odd) {
+  left: 50%;
+}
+
+.canvas_List {
+  display: flex;
+  list-style: none;
+  transform: scale(-1,1);
+}
+
+.dataCollector {
+  border: solid 1px #333;
+  
+}
+
