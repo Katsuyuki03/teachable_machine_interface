@@ -11,10 +11,10 @@ h1 {
 video {
   clear: both;
   display: block;
-  margin: 10px;
+  margin: 0px;
   background: #000000;
-  width: 100px;
-  height: 92px;
+  width: 640px;
+  height: 480px;
   transform: scale(-1,1);
 }
 

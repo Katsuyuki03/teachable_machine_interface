@@ -19,7 +19,7 @@ const contexts = [];
 const videoContainer = document.querySelector('#js-video-Container');
 const video = document.createElement('video');
 
-// videoContainer.appendChild(video)
+videoContainer.appendChild(video)
 
 const dataCollectorButtons = document.querySelectorAll('.dataCollector');
 const playerStatus = document.querySelectorAll('.js-status-Player');
@@ -360,10 +360,11 @@ model.compile({
 //   }
 // }
 
-
 ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
 TRAIN_BUTTON.addEventListener('click', trainAndPredict);
 RESET_BUTTON.addEventListener('click', reset);
+
+
 // //「ポン」(卓球ゲーム)もどき
 // // マウスで両方のパドルを走査する
 
