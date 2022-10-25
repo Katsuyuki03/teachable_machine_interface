@@ -139,6 +139,15 @@ const enableCam = () => {
   } else {
     console.warn('getUserMedia() is not supported by your browser');
   }
+
+  isGameset = false;
+  // ボールは最初、キャンバス中央から左へ進む
+  ballSp.position.x = width / 2;
+  ballSp.position.y = height / 2;
+  ballSp.setSpeed(MAX_SPEED, 160);
+  p1Score = 0;
+  p2Score = 0;
+
 }
 // function enableCam() {
 //   if (hasGetUserMedia()) {
@@ -377,101 +386,101 @@ TRAIN_BUTTON.addEventListener('click', trainAndPredict);
 RESET_BUTTON.addEventListener('click', reset);
 
 
-// //「ポン」(卓球ゲーム)もどき
-// // マウスで両方のパドルを走査する
+//「ポン」(卓球ゲーム)もどき
+// マウスで両方のパドルを走査する
 
-// let leftPaddleSp, rightPaddleSp, ballSp, wallTopSp, wallBottomSp;
-// const MAX_SPEED = 7;
+let leftPaddleSp, rightPaddleSp, ballSp, wallTopSp, wallBottomSp;
+const MAX_SPEED = 7;
 
-// // ゲームが始まっていないかを表す真偽値
-// let isGameset = true;
-// // ゲームの現在の状態（起動・勝敗など）にあわせて表示される画像が入る変数
-// let currentImg;
+// ゲームが始まっていないかを表す真偽値
+let isGameset = true;
+// ゲームの現在の状態（起動・勝敗など）にあわせて表示される画像が入る変数
+let currentImg;
 
-// let start;
-// let p1Win;
-// let p2Win;
+let start;
+let p1Win;
+let p2Win;
 
-// let Leftp = 200;
-// let Rightp = 200;
+let Leftp = 200;
+let Rightp = 200;
 
 // let startButton = document.getElementById("btn-start");
-// let againButton = document.getElementById("btn-again");
+let againButton = document.getElementById("btn-again");
 
-// function preload() {
-//   start = loadImage("images/start.jpg");
-//   p1Win = loadImage("images/p1Win.jpg");
-//   p2Win = loadImage("images/p2Win.jpg");
-//   currentImg = start;
-// }
+function preload() {
+  start = loadImage("images/start.jpg");
+  p1Win = loadImage("images/p1Win.jpg");
+  p2Win = loadImage("images/p2Win.jpg");
+  currentImg = start;
+}
 
-// // プログレスバー代案1
-// // const bar = new ProgressBar.Line(container, {
-// //   strokeWidth: 1,
-// //   easing: "easeInOut",
-// //   duration: 1400,
-// //   color: "#FFEA82",
-// //   trailColor: "#eee",
-// //   trailWidth: 1,
-// //   svgStyle: {width: "100%", height: "100%"}
-// // });
-// // bar.animate(1.0);
-// // プログレスバー代案2
-// // var p2_value = 0;
-// // function proc2()
-// // {
-// // 	if (p2_value  < 100 ) {
-// // 		document.getElementById('p2').style.width = ++p2_value + '%';
-// // 		setTimeout(proc2, 100);
-// // 	}
-// // };
+// プログレスバー代案1
+// const bar = new ProgressBar.Line(container, {
+//   strokeWidth: 1,
+//   easing: "easeInOut",
+//   duration: 1400,
+//   color: "#FFEA82",
+//   trailColor: "#eee",
+//   trailWidth: 1,
+//   svgStyle: {width: "100%", height: "100%"}
+// });
+// bar.animate(1.0);
+// プログレスバー代案2
+// var p2_value = 0;
+// function proc2()
+// {
+// 	if (p2_value  < 100 ) {
+// 		document.getElementById('p2').style.width = ++p2_value + '%';
+// 		setTimeout(proc2, 100);
+// 	}
+// };
 
-// // let processor = {
-// //   timerCallback: function() {
-// //     if (this.video.paused || this.video.ended) {
-// //       return;
-// //     }
-// //     this.computeFrame();
-// //     let self = this;
-// //     setTimeout(function () {
-// //         self.timerCallback();
-// //       }, 0);
-// //   },
+// let processor = {
+//   timerCallback: function() {
+//     if (this.video.paused || this.video.ended) {
+//       return;
+//     }
+//     this.computeFrame();
+//     let self = this;
+//     setTimeout(function () {
+//         self.timerCallback();
+//       }, 0);
+//   },
 
-// //   doLoad: function() {
-// //     this.video = document.getElementById("webcam");
-// //     this.c1 = document.getElementById("c1");
-// //     this.ctx1 = this.c1.getContext("2d");
-// //     // this.c2 = document.getElementById("c2");
-// //     // this.ctx2 = this.c2.getContext("2d");
-// //     let self = this;
-// //     this.video.addEventListener("play", function() {
-// //         self.width = self.video.videoWidth / 2;
-// //         self.height = self.video.videoHeight / 2;
-// //         self.timerCallback();
-// //       }, false);
-// //   },
+//   doLoad: function() {
+//     this.video = document.getElementById("webcam");
+//     this.c1 = document.getElementById("c1");
+//     this.ctx1 = this.c1.getContext("2d");
+//     // this.c2 = document.getElementById("c2");
+//     // this.ctx2 = this.c2.getContext("2d");
+//     let self = this;
+//     this.video.addEventListener("play", function() {
+//         self.width = self.video.videoWidth / 2;
+//         self.height = self.video.videoHeight / 2;
+//         self.timerCallback();
+//       }, false);
+//   },
 
-// //   computeFrame: function() {
-// //     this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
-// //     let frame = this.ctx1.getImageData(0, 0, this.width, this.height);
-// //         let l = frame.data.length / 4;
+//   computeFrame: function() {
+//     this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
+//     let frame = this.ctx1.getImageData(0, 0, this.width, this.height);
+//         let l = frame.data.length / 4;
 
-// //     for (let i = 0; i < l; i++) {
-// //       let r = frame.data[i * 4 + 0];
-// //       let g = frame.data[i * 4 + 1];
-// //       let b = frame.data[i * 4 + 2];
-// //       if (g > 100 && r > 100 && b < 43)
-// //         frame.data[i * 4 + 3] = 0;
-// //     }
-// //     this.ctx2.putImageData(frame, 0, 0);
-// //     return;
-// //   }
-// // };
+//     for (let i = 0; i < l; i++) {
+//       let r = frame.data[i * 4 + 0];
+//       let g = frame.data[i * 4 + 1];
+//       let b = frame.data[i * 4 + 2];
+//       if (g > 100 && r > 100 && b < 43)
+//         frame.data[i * 4 + 3] = 0;
+//     }
+//     this.ctx2.putImageData(frame, 0, 0);
+//     return;
+//   }
+// };
 
-// // document.addEventListener("DOMContentLoaded", () => {
-// // processor.doLoad();
-// // });
+// document.addEventListener("DOMContentLoaded", () => {
+// processor.doLoad();
+// });
 
 // startButton.addEventListener(`click`, () => {
 //   console.log('startButton がクリックされました');
@@ -484,192 +493,192 @@ RESET_BUTTON.addEventListener('click', reset);
 //   p2Score = 0;
 // });
 
-// againButton.addEventListener(`click`, () => {
-//   console.log('againButton がクリックされました');
-//   currentImg = start;
-//   // ボールは最初、キャンバス中央から左へ進む
-//   ballSp.position.x = width / 2;
-//   ballSp.position.y = height / 2;
-//   ballSp.setSpeed(MAX_SPEED, 160);
-//   p1Score = 0;
-//   p2Score = 0;
-// });
+againButton.addEventListener(`click`, () => {
+  console.log('againButton がクリックされました');
+  currentImg = start;
+  // ボールは最初、キャンバス中央から左へ進む
+  ballSp.position.x = width / 2;
+  ballSp.position.y = height / 2;
+  ballSp.setSpeed(MAX_SPEED, 160);
+  p1Score = 0;
+  p2Score = 0;
+});
 
-// //score
-// let p1Score = 0;
-// let p2Score = 0;
-// let page = 0;
+//score
+let p1Score = 0;
+let p2Score = 0;
+let page = 0;
 
-// function setup() {
-//   const canvas = createCanvas( 800, 400 );
+function setup() {
+  const canvas = createCanvas( 800, 400 );
   
-//   // HTMLのdiv game-screen に canvasを挿入
-//   canvas.parent("game-screen");
+  // HTMLのdiv game-screen に canvasを挿入
+  canvas.parent("game-screen");
 
-//   // createCanvas(800, 400);
+  // createCanvas(800, 400);
 
-// 	textSize(50);
+	textSize(50);
 
-//   // display = none;
-//   //frameRate(6);
-//   const w = 10;
-//   const h = 100;
-//   const offset = 30;
+  // display = none;
+  //frameRate(6);
+  const w = 10;
+  const h = 100;
+  const offset = 30;
 
-//   noStroke();
-//   reset=0;
+  noStroke();
+  reset=0;
 
 
    
 
 
-//   // 左のパドルスプライト
-//   leftPaddleSp = makeSprite(offset, height / 2, w, h, true, color(255, 0, 0));
-//   // 右のパドルスプライト
-//   rightPaddleSp = makeSprite(width - offset, height / 2, w, h, true, color(255, 0, 255));
-//   // 上の壁スプライト
-//   wallTopSp = makeSprite(width / 2, -10, width, offset, true, color(0, 255, 0));
-//   // 下の壁スプライト
-//   wallBottomSp = makeSprite(width / 2, height + 10, width, offset, true, color(0, 255, 0));
-//   // ボールスプライト
-//   ballSp = makeSprite(width / 2, height / 2, 10, 10, false, color(255));
-//   // 速くなりすぎないように制限を設ける
-//   ballSp.maxSpeed = MAX_SPEED;
-//   // ボールは最初、キャンバス中央から左へ進む
-//   ballSp.setSpeed(MAX_SPEED, -180);
-// }
+  // 左のパドルスプライト
+  leftPaddleSp = makeSprite(offset, height / 2, w, h, true, color(255, 0, 0));
+  // 右のパドルスプライト
+  rightPaddleSp = makeSprite(width - offset, height / 2, w, h, true, color(255, 0, 255));
+  // 上の壁スプライト
+  wallTopSp = makeSprite(width / 2, -10, width, offset, true, color(0, 255, 0));
+  // 下の壁スプライト
+  wallBottomSp = makeSprite(width / 2, height + 10, width, offset, true, color(0, 255, 0));
+  // ボールスプライト
+  ballSp = makeSprite(width / 2, height / 2, 10, 10, false, color(255));
+  // 速くなりすぎないように制限を設ける
+  ballSp.maxSpeed = MAX_SPEED;
+  // ボールは最初、キャンバス中央から左へ進む
+  ballSp.setSpeed(MAX_SPEED, -180);
+}
 
-// // スプライトを作成し、与えられた引数でプロパティを設定したスプライトを返す
-// function makeSprite(xpos, ypos, w, h, isImmovable, col) {
-//   const sp = createSprite();
-//   sp.width = w;
-//   sp.height = h;
-//   sp.position.x = xpos;
-//   sp.position.y = ypos;
-//   sp.immovable = isImmovable;
-//   sp.shapeColor = col;
-//   return sp;
-// }
+// スプライトを作成し、与えられた引数でプロパティを設定したスプライトを返す
+function makeSprite(xpos, ypos, w, h, isImmovable, col) {
+  const sp = createSprite();
+  sp.width = w;
+  sp.height = h;
+  sp.position.x = xpos;
+  sp.position.y = ypos;
+  sp.immovable = isImmovable;
+  sp.shapeColor = col;
+  return sp;
+}
 
-// function draw() {
+function draw() {
 
-//   if (isGameset) {
-//     background(255);
-//     // 画像の幅と高さは適当
-//     image(currentImg, 0, 0, 800, 400);
-//   } else {
-//     background(0);     
-//     update();
-//     drawSprites();
-//     fill(255);
-//     text(p1Score, 200, 100);
-//     text(p2Score, 550, 100);
+  if (isGameset) {
+    background(255);
+    // 画像の幅と高さは適当
+    image(currentImg, 0, 0, 800, 400);
+  } else {
+    background(0);     
+    update();
+    drawSprites();
+    fill(255);
+    text(p1Score, 200, 100);
+    text(p2Score, 550, 100);
 
-//   }
+  }
    
-// }
+}
 
-// function keyPressed() {
+function keyPressed() {
       
-//   if ((key == "A") || (key == "a")) {
+  if ((key == "A") || (key == "a")) {
          
-//     Leftp= Leftp - 50
-//   }else if((key == "Z") || (key == "z")){
-//     Leftp= Leftp + 50
-//   }
+    Leftp= Leftp - 50
+  }else if((key == "Z") || (key == "z")){
+    Leftp= Leftp + 50
+  }
 
-//   if ((key == "k") || (key == "K")) {
+  if ((key == "k") || (key == "K")) {
          
-//     Rightp= Rightp- 50
-//   }else if((key == "m") || (key == "M")){
-//     Rightp= Rightp + 50
-//   }
+    Rightp= Rightp- 50
+  }else if((key == "m") || (key == "M")){
+    Rightp= Rightp + 50
+  }
 
-// }
+}
 
-// function update() {
+function update() {
 
-//   if(pose === "Class 1" && accuracy >= 85){ 
-//     Leftp= Leftp - 10
-//   }else if(pose === "Class 2" && accuracy >= 85){
-//     Leftp= Leftp + 10
-//   }else if(pose === "Class 3" && accuracy >= 85){ 
-//     Rightp= Rightp - 10
-//   }else if(pose === "Class 4" && accuracy >= 85){
-//     Rightp= Rightp+ 10
-//   }else{
-//     direction = 0;
-//     vertical = 0;
-//   }
+  if(pose === "Class 1" && accuracy >= 85){ 
+    Leftp= Leftp - 10
+  }else if(pose === "Class 2" && accuracy >= 85){
+    Leftp= Leftp + 10
+  }else if(pose === "Class 3" && accuracy >= 85){ 
+    Rightp= Rightp - 10
+  }else if(pose === "Class 4" && accuracy >= 85){
+    Rightp= Rightp+ 10
+  }else{
+    direction = 0;
+    vertical = 0;
+  }
 
-//   console.log(pose);
-//   // パドルがキャンバスから出ないように、上下の動きを制限し、
-//   // 右パドルを左パドルの動きに同期させる。
-//   leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+  console.log(pose);
+  // パドルがキャンバスから出ないように、上下の動きを制限し、
+  // 右パドルを左パドルの動きに同期させる。
+  leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
 
-//   rightPaddleSp.position.y = constrain(Rightp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
-
-
+  rightPaddleSp.position.y = constrain(Rightp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
 
 
-//   // ボールは上の壁に当たったら跳ね返る
-//   ballSp.bounce(wallTopSp);
-//   // ボールは下の壁に当たったら跳ね返る
-//   ballSp.bounce(wallBottomSp);
 
-//   // 入射角＝反射角とする => ballSp.getDirection()
-//   // 「反射の法則」 https://exam.fukuumedia.com/rika1-13/#i-3
-//   // ただし、ボールの芯とパドルの芯のずれが大きいと、反射角も大きくなる
 
-//   // ボールが左パドルに当たったら
-//   if (ballSp.bounce(leftPaddleSp)) {
-//     // ボールの芯とパドルの芯のずれ。
-//     const swing = (ballSp.position.y - leftPaddleSp.position.y) / 3;
-//     // 左パドルの場合、角度は時計回りに大きくなるので、角度を大きくするにはswingを足す
-//     ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() + swing);
-//     print(ballSp.getDirection())
-//   }
+  // ボールは上の壁に当たったら跳ね返る
+  ballSp.bounce(wallTopSp);
+  // ボールは下の壁に当たったら跳ね返る
+  ballSp.bounce(wallBottomSp);
 
-//   // ボールが右パドルに当たったら
-//   if (ballSp.bounce(rightPaddleSp)) {
-//     const swing = (ballSp.position.y - rightPaddleSp.position.y) / 3;
-//     // 右パドルの場合、角度は反時計回りに大きくなるので、角度を大きくするにはswingを引く
-//     ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() - swing);
-//   }
+  // 入射角＝反射角とする => ballSp.getDirection()
+  // 「反射の法則」 https://exam.fukuumedia.com/rika1-13/#i-3
+  // ただし、ボールの芯とパドルの芯のずれが大きいと、反射角も大きくなる
+
+  // ボールが左パドルに当たったら
+  if (ballSp.bounce(leftPaddleSp)) {
+    // ボールの芯とパドルの芯のずれ。
+    const swing = (ballSp.position.y - leftPaddleSp.position.y) / 3;
+    // 左パドルの場合、角度は時計回りに大きくなるので、角度を大きくするにはswingを足す
+    ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() + swing);
+    print(ballSp.getDirection())
+  }
+
+  // ボールが右パドルに当たったら
+  if (ballSp.bounce(rightPaddleSp)) {
+    const swing = (ballSp.position.y - rightPaddleSp.position.y) / 3;
+    // 右パドルの場合、角度は反時計回りに大きくなるので、角度を大きくするにはswingを引く
+    ballSp.setSpeed(MAX_SPEED, ballSp.getDirection() - swing);
+  }
 
 
     
-//   // ボールがキャンバス左端から外に出たら、真ん中に再配置し右へ動く
-//   if (ballSp.position.x < 0) {
-//     ballSp.position.x = width / 2;
-//     ballSp.position.y = height / 2;
-//     ballSp.setSpeed(MAX_SPEED, 0);
-//     p2Score = p2Score + 1;
-//   }
-//   // ボールがキャンバス右端から外に出たら、真ん中に再配置し左へ動く
-//   if (ballSp.position.x > width) {
-//     ballSp.position.x = width / 2;
-//     ballSp.position.y = height / 2;
-//     ballSp.setSpeed(MAX_SPEED, 180);
-//     p1Score = p1Score + 1;
-//   }
-// 	//check for winner
+  // ボールがキャンバス左端から外に出たら、真ん中に再配置し右へ動く
+  if (ballSp.position.x < 0) {
+    ballSp.position.x = width / 2;
+    ballSp.position.y = height / 2;
+    ballSp.setSpeed(MAX_SPEED, 0);
+    p2Score = p2Score + 1;
+  }
+  // ボールがキャンバス右端から外に出たら、真ん中に再配置し左へ動く
+  if (ballSp.position.x > width) {
+    ballSp.position.x = width / 2;
+    ballSp.position.y = height / 2;
+    ballSp.setSpeed(MAX_SPEED, 180);
+    p1Score = p1Score + 1;
+  }
+	//check for winner
 
-//   if (p1Score === 5) {
-//     ballSp.setSpeed(0, 0);
-//     currentImg = p1Win;
-//     isGameset = true;
-//     p1Score = 0;
-//     p2Score = 0;
-// 	}
+  if (p1Score === 5) {
+    ballSp.setSpeed(0, 0);
+    currentImg = p1Win;
+    isGameset = true;
+    p1Score = 0;
+    p2Score = 0;
+	}
 
-//   if (p2Score === 5) {
-//     ballSp.setSpeed(0, 0);
-//     currentImg = p2Win;
-//     isGameset = true;
-//     p1Score = 0;
-//     p2Score = 0;
-// 	}
+  if (p2Score === 5) {
+    ballSp.setSpeed(0, 0);
+    currentImg = p2Win;
+    isGameset = true;
+    p1Score = 0;
+    p2Score = 0;
+	}
    
 
-// }
+}
