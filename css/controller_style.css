@@ -43,11 +43,15 @@ button {
 .flex-side {
   display: flex;
   flex-direction: row;
+  text-align: center;
+
 }
 
 .flex-tate {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  
 }
 .start-btn{
   display: flex;
