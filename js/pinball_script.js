@@ -36,6 +36,7 @@ let predict = false;
 
 
 let pose = "Class 1";
+let form = "Class 3";
 let accuracy =0;
 let direction;
 
@@ -188,6 +189,7 @@ const predictLoop = () => {
         playerStatus[index].innerText = `Player${index + 1} Prediction: ${CLASS_NAMES[highestIndex]} with ${Math.floor(predictionArray[highestIndex] * 100)}% confidence`;
 
         pose = CLASS_NAMES[highestIndex];
+        form = CLASS_NAMES[highestIndex];
         accuracy = Math.floor(predictionArray[highestIndex] * 100);
       });
     });
@@ -585,9 +587,14 @@ function update() {
     Leftp= Leftp - 10
   }else if(pose === "Class 2" && accuracy >= 85){
     Leftp= Leftp + 10
-  }else if(pose === "Class 3" && accuracy >= 85){ 
+  }else {
+    direction = 0;
+    vertical = 0;
+  }
+  
+  if(form === "Class 3" && accuracy >= 85){ 
     Rightp= Rightp - 10
-  }else if(pose === "Class 4" && accuracy >= 85){
+  }else if(form === "Class 4" && accuracy >= 85){
     Rightp= Rightp + 10
   }else{
     direction = 0;
@@ -595,6 +602,7 @@ function update() {
   }
 
   console.log(pose);
+  // console.log(form);
   // パドルがキャンバスから出ないように、上下の動きを制限し、
   // 右パドルを左パドルの動きに同期させる。
   leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
