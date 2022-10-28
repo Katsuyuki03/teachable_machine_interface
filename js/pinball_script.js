@@ -1,5 +1,5 @@
 // const ENABLE_CAM_BUTTON = document.getElementById('enableCam');
-const RESET_BUTTON = document.getElementById('reset');
+// const RESET_BUTTON = document.getElementById('reset');
 const TRAIN_BUTTON = document.getElementById('train');
 
 const MOBILE_NET_INPUT_WIDTH = 224;
@@ -380,7 +380,7 @@ model.compile({
 
 
 TRAIN_BUTTON.addEventListener('click', trainAndPredict);
-RESET_BUTTON.addEventListener('click', reset);
+
 
 
 //「ポン」(卓球ゲーム)もどき
@@ -678,4 +678,7 @@ function update() {
 	}
    
 }
+
+
 enableCam();
+againButton.addEventListener('click', reset);
