@@ -1,4 +1,4 @@
-const ENABLE_CAM_BUTTON = document.getElementById('enableCam');
+// const ENABLE_CAM_BUTTON = document.getElementById('enableCam');
 const RESET_BUTTON = document.getElementById('reset');
 const TRAIN_BUTTON = document.getElementById('train');
 
@@ -26,7 +26,7 @@ const canvasSample = document.querySelectorAll('.js-canvas_Sample');
 
 let mobilenet = undefined;
 let gatherDataState = STOP_DATA_GATHER;
-let videoPlaying = false;
+let videoPlaying = true;
 let trainingDataInputs = [];
 let trainingDataOutputs = [];
 let examplesCount = [];
@@ -140,13 +140,7 @@ const enableCam = () => {
     console.warn('getUserMedia() is not supported by your browser');
   }
 
-  isGameset = false;
-  // ボールは最初、キャンバス中央から左へ進む
-  ballSp.position.x = width / 2;
-  ballSp.position.y = height / 2;
-  ballSp.setSpeed(MAX_SPEED, 160);
-  p1Score = 0;
-  p2Score = 0;
+
 
 }
 // function enableCam() {
@@ -381,7 +375,10 @@ model.compile({
 //   }
 // }
 
-ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
+
+
+
+
 TRAIN_BUTTON.addEventListener('click', trainAndPredict);
 RESET_BUTTON.addEventListener('click', reset);
 
@@ -404,7 +401,7 @@ let p2Win;
 let Leftp = 200;
 let Rightp = 200;
 
-// let startButton = document.getElementById("btn-start");
+let startButton = document.getElementById("btn-start");
 let againButton = document.getElementById("btn-again");
 
 function preload() {
@@ -482,16 +479,16 @@ function preload() {
 // processor.doLoad();
 // });
 
-// startButton.addEventListener(`click`, () => {
-//   console.log('startButton がクリックされました');
-//   isGameset = false;
-//   // ボールは最初、キャンバス中央から左へ進む
-//   ballSp.position.x = width / 2;
-//   ballSp.position.y = height / 2;
-//   ballSp.setSpeed(MAX_SPEED, 160);
-//   p1Score = 0;
-//   p2Score = 0;
-// });
+startButton.addEventListener(`click`, () => {
+  console.log('startButton がクリックされました');
+  isGameset = false;
+  // ボールは最初、キャンバス中央から左へ進む
+  ballSp.position.x = width / 2;
+  ballSp.position.y = height / 2;
+  ballSp.setSpeed(MAX_SPEED, 160);
+  p1Score = 0;
+  p2Score = 0;
+});
 
 againButton.addEventListener(`click`, () => {
   console.log('againButton がクリックされました');
@@ -680,5 +677,5 @@ function update() {
     p2Score = 0;
 	}
    
-
 }
+enableCam();
