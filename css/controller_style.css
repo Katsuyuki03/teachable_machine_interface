@@ -1,6 +1,5 @@
 body {
   font-family: helvetica, arial, sans-serif;
-  margin: 2em;
 }
 
 h1 {
@@ -30,9 +29,7 @@ button {
   display: none;
 }
 
-#status {
-  font-size:150%;
-}
+
 
 
 .flex {
@@ -43,7 +40,7 @@ button {
 .flex-side {
   display: flex;
   flex-direction: row;
-  text-align: center;
+  justify-content: center;
 
 }
 
