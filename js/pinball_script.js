@@ -26,7 +26,7 @@ const canvasSample = document.querySelectorAll('.js-canvas_Sample');
 
 let mobilenet = undefined;
 let gatherDataState = STOP_DATA_GATHER;
-let videoPlaying = true;
+let videoPlaying = false;
 let trainingDataInputs = [];
 let trainingDataOutputs = [];
 let examplesCount = [];
@@ -139,9 +139,6 @@ const enableCam = () => {
   } else {
     console.warn('getUserMedia() is not supported by your browser');
   }
-
-
-
 }
 // function enableCam() {
 //   if (hasGetUserMedia()) {
@@ -313,8 +310,7 @@ canvasList.forEach((canvas) => {
 
   console.log('Tensors in memory: ' + tf.memory().numTensors);
 
-  x = 150 ;
-  y = 150 ;
+
 }
 
 video.autoplay = true;
@@ -570,14 +566,12 @@ function draw() {
 function keyPressed() {
       
   if ((key == "A") || (key == "a")) {
-         
     Leftp= Leftp - 50
   }else if((key == "Z") || (key == "z")){
     Leftp= Leftp + 50
   }
 
   if ((key == "k") || (key == "K")) {
-         
     Rightp= Rightp- 50
   }else if((key == "m") || (key == "M")){
     Rightp= Rightp + 50
@@ -594,7 +588,7 @@ function update() {
   }else if(pose === "Class 3" && accuracy >= 85){ 
     Rightp= Rightp - 10
   }else if(pose === "Class 4" && accuracy >= 85){
-    Rightp= Rightp+ 10
+    Rightp= Rightp + 10
   }else{
     direction = 0;
     vertical = 0;
@@ -605,7 +599,7 @@ function update() {
   // 右パドルを左パドルの動きに同期させる。
   leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
 
-  rightPaddleSp.position.y = constrain(Rightp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+  rightPaddleSp.position.y = constrain(Rightp, rightPaddleSp.height / 2, height - rightPaddleSp.height / 2);
 
 
 
