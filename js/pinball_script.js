@@ -583,18 +583,18 @@ function keyPressed() {
 
 function update() {
 
-  if(pose === "Class 1" && accuracy >= 85){ 
+  if(pose[0] === "Class 1" && accuracy >= 85){ 
     Leftp= Leftp - 10
-  }else if(pose === "Class 2" && accuracy >= 85){
+  }else if(pose[0] === "Class 2" && accuracy >= 85){
     Leftp= Leftp + 10
   }else {
     direction = 0;
     vertical = 0;
   }
   
-  if(pose === "Class 3" && accuracy >= 85){ 
+  if(pose[1] === "Class 3" && accuracy >= 85){ 
     Rightp= Rightp - 10
-  }else if(pose === "Class 4" && accuracy >= 85){
+  }else if(pose[1] === "Class 4" && accuracy >= 85){
     Rightp= Rightp + 10
   }else{
     direction = 0;
