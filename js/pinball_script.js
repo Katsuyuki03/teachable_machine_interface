@@ -1,6 +1,6 @@
 // const ENABLE_CAM_BUTTON = document.getElementById('enableCam');
 // const RESET_BUTTON = document.getElementById('reset');
-const TRAIN_BUTTON = document.getElementById('train');
+// const TRAIN_BUTTON = document.getElementById('train');
 
 const MOBILE_NET_INPUT_WIDTH = 224;
 const MOBILE_NET_INPUT_HEIGHT = 224;
@@ -33,7 +33,7 @@ let examplesCount = [];
 let model = tf.sequential();
 let predict = false;
 
-let result = document.getElementById('result');
+
 
 let pose = "Class 1";
 let accuracy =0;
@@ -306,7 +306,6 @@ canvasList.forEach((canvas) => {
   }
   trainingDataInputs.length = 0;
   trainingDataOutputs.length = 0;
-  STATUS.innerText = 'No data collected';
 
   canvasSample.forEach((cs) => {
     cs.innerText = 0;
@@ -374,13 +373,6 @@ model.compile({
 //     window.requestAnimationFrame(dataGatherLoop);
 //   }
 // }
-
-
-
-
-
-TRAIN_BUTTON.addEventListener('click', trainAndPredict);
-
 
 
 //「ポン」(卓球ゲーム)もどき
@@ -681,4 +673,5 @@ function update() {
 
 
 enableCam();
+startButton.addEventListener('click', trainAndPredict);
 againButton.addEventListener('click', reset);
