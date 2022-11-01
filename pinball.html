@@ -36,17 +36,13 @@
     
       <div class="flex-tate">
         
-        <!-- プログレスバー代案1 -->
-        <!-- <div id="container"></div> -->
-        <!-- プログレスバー代案2 -->
-        <!-- <span style="display:inline-block;width:180px;border:1px solid #cccccc;">
-        <div id="p2" style="width:0px;background-color:rgb(164, 247, 137);height:16px;"></div>
-        </span> -->
         <canvas class="js-canvas_Video" width="180" height="180"></canvas>
         <button class="dataCollector" data-1hot="0" mousedown="proc2();" data-name="Class 1"> アカ操作・上</button>
-        <div class="rivers">サンプル数: <span class="js-canvas_Sample">0</span></div>
+        <div class="progress">
+          <div class="progress-bar"> <span class="js-canvas_Sample"></span></div>
+        </div>
         <div class="center"><img src="images/player1.jpg" width="125" height="250" ></div>
-        <div class="rivers">サンプル数: <span class="js-canvas_Sample">0</span></div>
+        <div ><span class="js-canvas_Sample">0</span></div>
         <button class="dataCollector" data-1hot="1" data-name="Class 2">アカ操作・下</button>
         <canvas class="js-canvas_Video" width="180" height="180"></canvas>
 
@@ -71,9 +67,9 @@
       <div class="flex-tate">
         <canvas class="js-canvas_Video" width="180" height="180"></canvas>
         <button class="dataCollector" data-1hot="2" data-name="Class 3">ピンク操作・上</button>
-        <div class="rivers">サンプル数: <span class="js-canvas_Sample">0</span></div>
+        <div> <span class="js-canvas_Sample">0</span></div>
         <div class="center"><img src="images/player2.jpg"  width="125" height="250" ></div>
-        <div class="rivers">サンプル数: <span class="js-canvas_Sample">0</span></div>
+        <div> <span class="js-canvas_Sample">0</span></div>
         <button class="dataCollector" data-1hot="3" data-name="Class 4">ピンク操作・下</button>
         <canvas class="js-canvas_Video" width="180" height="180"></canvas>
       </div>
