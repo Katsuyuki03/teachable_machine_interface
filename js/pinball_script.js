@@ -471,14 +471,19 @@ function preload() {
 
 startButton.addEventListener(`click`, () => {
   console.log('startButton がクリックされました');
-  isGameset = false;
-  // ボールは最初、キャンバス中央から左へ進む
-  ballSp.position.x = width / 2;
-  ballSp.position.y = height / 2;
-  ballSp.setSpeed(MAX_SPEED, 160);
-  p1Score = 0;
-  p2Score = 0;
+
+  window.setTimeout(() => {
+    isGameset = false;
+    // ボールは最初、キャンバス中央から左へ進む
+    ballSp.position.x = width / 2;
+    ballSp.position.y = height / 2;
+    ballSp.setSpeed(MAX_SPEED, 160);
+    p1Score = 0;
+    p2Score = 0;
+  }, 8000);
+  
 });
+
 
 againButton.addEventListener(`click`, () => {
   console.log('againButton がクリックされました');
