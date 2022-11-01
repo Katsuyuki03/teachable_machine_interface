@@ -33,6 +33,11 @@ let examplesCount = [];
 let model = tf.sequential();
 let predict = false;
 
+// プログレスバー
+
+const bar = document.querySelector('.progress-bar');
+
+
 
 
 const pose = [];
@@ -91,7 +96,7 @@ const dataGatherLoop = (index) => {
       examplesCount[gatherDataState]++;
 
       canvasSample[canvasIndex].innerText = examplesCount[canvasIndex];
-
+      bar.style.width = examplesCount[canvasIndex]+"%";
       window.requestAnimationFrame(loop);
     }
   };
@@ -300,6 +305,7 @@ canvasList.forEach((canvas) => {
  function reset() {
   predict = false;
   examplesCount.length = 0;
+  bar.style.width = 0;
   for (let i = 0; i < trainingDataInputs.length; i++) {
     trainingDataInputs[i].dispose();
   }
@@ -308,6 +314,10 @@ canvasList.forEach((canvas) => {
 
   canvasSample.forEach((cs) => {
     cs.innerText = 0;
+  });
+
+  bar.style.width.forEach((cs) => {
+    cs.bar.style.width =0;
   });
 
   console.log('Tensors in memory: ' + tf.memory().numTensors);
@@ -405,13 +415,7 @@ function preload() {
 
 
 
-// プログレスバー
 
-const bar = document.querySelector('.progress-bar');
-
-bar.style.width = "canvasSample";
-
-bar.style.width.max="120";
 
 
 // let processor = {

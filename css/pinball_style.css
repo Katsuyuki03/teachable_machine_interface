@@ -104,7 +104,7 @@ a.btn--green:hover {
   height: 16px;
 }
 .progress-bar{
-  background: blue;
+  background: rgb(0, 162, 255);
   width: 0;
   height: 100%;
 }
