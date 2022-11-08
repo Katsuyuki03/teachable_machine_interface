@@ -35,7 +35,7 @@ let predict = false;
 
 // プログレスバー
 
-const bar = document.querySelector('.progress-bar');
+const bar = document.querySelectorAll('.js-progress-bar');
 
 
 
@@ -96,7 +96,7 @@ const dataGatherLoop = (index) => {
       examplesCount[gatherDataState]++;
 
       canvasSample[canvasIndex].innerText = examplesCount[canvasIndex];
-      bar.style.width = examplesCount[canvasIndex]+"%";
+      bar[canvasIndex].style.width = Math.min(examplesCount[canvasIndex]*0.5,100)+"%";
       window.requestAnimationFrame(loop);
     }
   };
@@ -305,7 +305,6 @@ canvasList.forEach((canvas) => {
  function reset() {
   predict = false;
   examplesCount.length = 0;
-  bar.style.width = 0;
   for (let i = 0; i < trainingDataInputs.length; i++) {
     trainingDataInputs[i].dispose();
   }
@@ -316,8 +315,8 @@ canvasList.forEach((canvas) => {
     cs.innerText = 0;
   });
 
-  bar.style.width.forEach((cs) => {
-    cs.bar.style.width =0;
+  bar.forEach((b) => {
+    b.style.width =0;
   });
 
   console.log('Tensors in memory: ' + tf.memory().numTensors);
@@ -337,6 +336,7 @@ for (let i = 0; i < dataCollectorButtons.length; i++) {
   dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
   // Populate the human readable names for classes.
   CLASS_NAMES.push(dataCollectorButtons[i].getAttribute('data-name'));
+  
 }
 
 model.add(tf.layers.dense({inputShape: [1024], units: 128, activation: 'relu'}));
