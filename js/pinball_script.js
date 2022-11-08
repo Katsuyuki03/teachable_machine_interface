@@ -99,6 +99,11 @@ const dataGatherLoop = (index) => {
       bar[canvasIndex].style.width = Math.min(examplesCount[canvasIndex]*0.5,100)+"%";
       window.requestAnimationFrame(loop);
     }
+
+    if(examplesCount[0]>=200 && examplesCount[1]>=200 && examplesCount[2]>=200 && examplesCount[3]>=200) {
+      startButton.disabled =false;
+    }
+
   };
 
   window.requestAnimationFrame(loop);
@@ -405,6 +410,8 @@ let Rightp = 200;
 
 let startButton = document.getElementById("btn-start");
 let againButton = document.getElementById("btn-again");
+
+startButton.disabled =true;
 
 function preload() {
   start = loadImage("images/start.jpg");
