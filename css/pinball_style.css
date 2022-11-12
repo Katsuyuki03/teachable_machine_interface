@@ -48,7 +48,7 @@ button.btn {
 }
 
 a.btn--green {
-  color: #000;
+  color: rgb(231, 231, 231);
   background-color: #00ff84;
   border-bottom: 5px solid #00ff84;
 }
@@ -104,7 +104,11 @@ a.btn--green:hover {
   height: 16px;
 }
 .progress-bar{
-  background: rgb(0, 162, 255);
+  background: rgb(0, 119, 255);
   width: 0;
   height: 100%;
+}
+
+.js-status-Player{
+  font-size: 30;
 }

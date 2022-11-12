@@ -96,11 +96,11 @@ const dataGatherLoop = (index) => {
       examplesCount[gatherDataState]++;
 
       canvasSample[canvasIndex].innerText = examplesCount[canvasIndex];
-      bar[canvasIndex].style.width = Math.min(examplesCount[canvasIndex]*0.5,100)+"%";
+      bar[canvasIndex].style.width = Math.min(examplesCount[canvasIndex]*0.8,100)+"%";
       window.requestAnimationFrame(loop);
     }
 
-    if(examplesCount[0]>=200 && examplesCount[1]>=200 && examplesCount[2]>=200 && examplesCount[3]>=200) {
+    if(examplesCount[0]>=120 && examplesCount[1]>=120 && examplesCount[2]>=120 && examplesCount[3]>=120) {
       startButton.disabled =false;
     }
 
