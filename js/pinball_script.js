@@ -483,7 +483,7 @@ startButton.addEventListener(`click`, () => {
     ballSp.setSpeed(MAX_SPEED, 160);
     p1Score = 0;
     p2Score = 0;
-  }, 8000);
+  }, 10000);
   
 });
 

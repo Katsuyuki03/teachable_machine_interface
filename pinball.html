@@ -19,83 +19,80 @@
 
   </head>
   <body>
-    <!-- Import the page's JavaScript to do some stuff -->
-    <!-- <div id="js-video-Container" class="video-Container">
-      <div class="js-video-Capture video-Capture"></div>
-      <div class="js-video-Capture video-Capture"></div>
-    </div>
-   -->
+    <div class="center" >  
+      <!-- Import the page's JavaScript to do some stuff -->
+      <!-- <div id="js-video-Container" class="video-Container">
+        <div class="js-video-Capture video-Capture"></div>
+        <div class="js-video-Capture video-Capture"></div>
+      </div> -->
+  
     
   
-    <div class="flex-side">
+      <div class="flex-side">
       
 
       
       
           
     
-      <div class="flex-tate">
+        <div class="flex-tate">
         
-        <canvas class="js-canvas_Video" width="180" height="180"></canvas>
-        <button class="dataCollector" data-1hot="0"  data-name="Class 1"> アカ操作・上</button>
-        <div class="progress">
-          <div class="js-progress-bar progress-bar" > <span class="js-canvas_Sample " >0</span></div>
-        </div>
-        <div class="center"><img src="images/player1.jpg" width="125" height="250" ></div>
-        <div class="progress">
-          <div class="js-progress-bar progress-bar" > <span class="js-canvas_Sample " >0</span></div>
-        </div>
-        <button class="dataCollector" data-1hot="1" data-name="Class 2">アカ操作・下</button>
-        <canvas class="js-canvas_Video" width="180" height="180"></canvas>
-
-      </div>
-      <div class="flex-tate">
-        <div id="game-screen" class="canvas"></div>
-        <div class="start-btn">
-          <button id="btn-start" class="btn btn--green" >スタート</button>
-          <button id="btn-again" class="btn btn--green" >もう一度遊ぶ</button>
-        </div>
-        <div>
+          <canvas class="js-canvas_Video" width="180" height="180"></canvas>
+          <button class="dataCollector" data-1hot="0"  data-name="Class 1"> アカ操作・上</button>
+          <div class="progress">
+            <div class="js-progress-bar progress-bar" > <span class="js-canvas_Sample " >0</span></div>
+          </div>
+          <div class="center"><img src="images/player1.jpg" width="125" height="250" ></div>
+          <div class="progress">
+            <div class="js-progress-bar progress-bar" > <span class="js-canvas_Sample " >0</span></div>
+          </div>
+          <button class="dataCollector" data-1hot="1" data-name="Class 2">アカ操作・下</button>
+          <canvas class="js-canvas_Video" width="180" height="180"></canvas>
 
         </div>
+
+        <div class="flex-tate">
+          <div id="game-screen" class="canvas"></div>
+          <div class="start-btn">
+            <button id="btn-start" class="btn btn--green" >スタート</button>
+            <button id="btn-again" class="btn btn--green" >もう一度遊ぶ</button>
+          </div>
+
+          <div class="center">
+            <div class="js-status-Player"></div>
+            <div class="js-status-Player"></div>
+          </div>
+
+        </div>
         
-        <div class="center">
-          <div class="js-status-Player"></div>
-          <div class="js-status-Player"></div>
-        </div>
-      </div>
+       
       
       
-      <div class="flex-tate">
-        <canvas class="js-canvas_Video" width="180" height="180"></canvas>
-        <button class="dataCollector" data-1hot="2" data-name="Class 3">ピンク操作・上</button>
-        <div class="progress">
-          <div class="js-progress-bar progress-bar"> <span class="js-canvas_Sample " >0</span></div>
+      
+        <div class="flex-tate">
+          <canvas class="js-canvas_Video" width="180" height="180"></canvas>
+          <button class="dataCollector" data-1hot="2" data-name="Class 3">ピンク操作・上</button>
+          <div class="progress">
+            <div class="js-progress-bar progress-bar"> <span class="js-canvas_Sample " >0</span></div>
+          </div>
+          <div class="center"><img src="images/player2.jpg"  width="125" height="250" ></div>
+          <div class="progress">
+            <div class="js-progress-bar progress-bar"> <span class="js-canvas_Sample " >0</span></div>
+          </div>
+          <button class="dataCollector" data-1hot="3" data-name="Class 4">ピンク操作・下</button>
+          <canvas class="js-canvas_Video" width="180" height="180"></canvas>
         </div>
-        <div class="center"><img src="images/player2.jpg"  width="125" height="250" ></div>
-        <div class="progress">
-          <div class="js-progress-bar progress-bar"> <span class="js-canvas_Sample " >0</span></div>
-        </div>
-        <button class="dataCollector" data-1hot="3" data-name="Class 4">ピンク操作・下</button>
-        <canvas class="js-canvas_Video" width="180" height="180"></canvas>
-      </div>
 
 
           
     
     
-    </div>
+      </div>
   
     <!-- Import TensorFlow.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>
-
-    <div class="flex-tate">
-      
-     
-      
-      
-    </div>
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>
     
-   <script src="js/pinball_script.js"></script>
+      <script src="js/pinball_script.js"></script>
+    </div> 
   </body>
 </html>
