@@ -95,7 +95,7 @@ const dataGatherLoop = (index) => {
 
       examplesCount[gatherDataState]++;
 
-      canvasSample[canvasIndex].innerText = examplesCount[canvasIndex];
+      canvasSample[canvasIndex] = examplesCount[canvasIndex];
       bar[canvasIndex].style.width = Math.min(examplesCount[canvasIndex]*0.8,100)+"%";
       window.requestAnimationFrame(loop);
     }
@@ -317,7 +317,7 @@ canvasList.forEach((canvas) => {
   trainingDataOutputs.length = 0;
 
   canvasSample.forEach((cs) => {
-    cs.innerText = 0;
+    cs = 0;
   });
 
   bar.forEach((b) => {
