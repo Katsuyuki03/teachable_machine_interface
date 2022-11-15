@@ -6,8 +6,8 @@
   "permissions": ["http://*/*", "https://*/*"],
   "browser_action": {
     "default_icon": {
-      "16": "icon(kari).png",
-    }
-    "default_popup": "popup.html"
+      "16": "/icon(kari).png"
+    },
+    "deafult_popup": "popup.html"
   }
 }
