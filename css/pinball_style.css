@@ -114,3 +114,9 @@ a.btn--green:hover {
 .js-status-Player{
   font-size: 30;
 }
+.jouge{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
