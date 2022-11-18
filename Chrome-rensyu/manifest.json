@@ -3,9 +3,11 @@
   "name": "kimetsu2bo-bobo",
   "description": "鬼滅の刃の文字をボボボーボ・ボーボボに置換する",
   "version": "1.0",
+  "permissions": ["scripting"],
   "action": {
-    "deafult_popup": "popup.html"
+    "default_popup": "popup.html"
   },
+  "host_permissions": ["http://*/*", "https://*/*"],
   "icons": {
     "16": "icon_kari.png"
   }
