@@ -3,12 +3,16 @@
     "name": "youtube-stop",
     "description": "youtubeを止めたり再生したりする",
     "version": "1.0",
-    "permissions": ["scripting"],
     "action": {
       "default_popup": "popup.html"
     },
-    "host_permissions": ["http://*/*", "https://*/*"],
     "icons": {
-      "16": ""
-    }
+      "16": "icon.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*/*"],
+        "js": ["content.js"]
+      }
+    ]
   }
