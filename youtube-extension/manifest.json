@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "youtube-stop",
+    "name": "ミテコンチューブ",
     "description": "youtubeを止めたり再生したりする",
     "version": "1.0",
     "action": {
@@ -11,7 +11,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["https://*/*"],
+        "matches": ["*://*.youtube.com/*"],
         "js": ["content.js"]
       }
     ]
