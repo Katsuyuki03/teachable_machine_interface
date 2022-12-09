@@ -2,15 +2,63 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="popup.css">
 </head>
 
 <body>
+    <!-- ストップ再生button
     <input type="text" id="title">
     <div>
         <h3>YouTubeのスタートとストップができる</h3>
         <button id="btn">変換</button>
+    </div> -->
+
+            <!-- Import the page's JavaScript to do some stuff -->
+      <!-- <div id="js-video-Container" class="video-Container">
+        <div class="js-video-Capture video-Capture"></div>
+        <div class="js-video-Capture video-Capture"></div>
+      </div> -->
+    <div class="wrap-tab">
+    <ul id="js-tab" class="list-tab">
+    <li class="active">Stop</li>
+    <li>volume</li>
+    <li>playback speed</li>
+    <li>all learn</li>
+    </ul>
+  
+  <div class="wrap-tab-content">
+    <div class="tab-content active">
+        <canvas class="js-canvas_Video" width="180" height="180"></canvas>
+        <button class="dataCollector" data-1hot="0"  data-name="Class 1"> 学習させる</button>
+        <div class="progress">
+          <div class="js-progress-bar progress-bar" > <span class="js-canvas_Sample " ></span></div>
+        </div>
     </div>
+
+    <div class="tab-content">
+        <canvas class="js-canvas_Video" width="180" height="180"></canvas>
+        <button class="dataCollector" data-1hot="1" data-name="Class 2">学習させる</button>
+            <div class="progress">
+                <div class="js-progress-bar progress-bar" > <span class="js-canvas_Sample " ></span></div>
+            </div>
+          
+    </div>
+    
+    <div class="tab-content">
+      <p>タブ3タブ3タブ3</p>
+    </div>
+    
+    <div class="tab-content">
+      <p>タブ4タブ4タブ4</p>
+    </div>
+  </div>
+</div>
+ <!-- Import TensorFlow.js library -->
+ <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>
+    
+
     <script src="popup.js"></script>
 </body>
 
