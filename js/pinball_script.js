@@ -613,7 +613,6 @@ function update() {
 
   console.log(pose);
   // パドルがキャンバスから出ないように、上下の動きを制限し、
-  // 右パドルを左パドルの動きに同期させる。
   leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
 
   rightPaddleSp.position.y = constrain(Rightp, rightPaddleSp.height / 2, height - rightPaddleSp.height / 2);

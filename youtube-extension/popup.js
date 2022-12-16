@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('.tab-content')[index].classList.add('active');
   };
 
-  console.log($);
 
 });
 
