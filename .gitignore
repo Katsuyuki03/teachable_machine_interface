@@ -102,3 +102,25 @@ dist
 
 # TernJS port file
 .tern-port
+teacher_example/Proto06SeiyaChromeExtension-master/README.md
+teacher_example/Proto06SeiyaChromeExtension-master/popup/main.js
+teacher_example/Proto06SeiyaChromeExtension-master/popup/main.css
+teacher_example/Proto06SeiyaChromeExtension-master/popup/index.html
+teacher_example/Proto06SeiyaChromeExtension-master/manifest.json
+teacher_example/Proto06SeiyaChromeExtension-master/content/sketch.js
+teacher_example/Proto06SeiyaChromeExtension-master/content/p5.js
+teacher_example/Proto06SeiyaChromeExtension-master/content/p5.dom.min.js
+teacher_example/Proto06SeiyaChromeExtension-master/content/ml5.min.js
+teacher_example/Proto06SeiyaChromeExtension-master/content/main.css
+teacher_example/Proto06SeiyaChromeExtension-master/bacground/main.js
+teacher_example/extention_befor/README.md
+teacher_example/extention_befor/popup/main.js
+teacher_example/extention_befor/popup/main.css
+teacher_example/extention_befor/popup/index.html
+teacher_example/extention_befor/manifest.json
+teacher_example/extention_befor/content/sketch.js
+teacher_example/extention_befor/content/p5.js
+teacher_example/extention_befor/content/p5.dom.min.js
+teacher_example/extention_befor/content/ml5.min.js
+teacher_example/extention_befor/content/main.css
+teacher_example/extention_befor/bacground/main.js
