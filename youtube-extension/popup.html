@@ -14,7 +14,6 @@
         <h3>YouTubeのスタートとストップができる</h3>
         <button id="btn">変換</button>
     </div> -->
-
             <!-- Import the page's JavaScript to do some stuff -->
       <!-- <div id="js-video-Container" class="video-Container">
         <div class="js-video-Capture video-Capture"></div>
@@ -30,20 +29,25 @@
   
   <div class="wrap-tab-content">
     <div class="tab-content active">
-        <canvas class="js-canvas_Video" width="180" height="180"></canvas>
+      <video id="video"></video>
         <button class="dataCollector" data-1hot="0"  data-name="Class 1"> 学習させる</button>
         <div class="progress">
           <div class="js-progress-bar progress-bar"> <span class="js-canvas_Sample " ></span></div>
         </div>
+        
     </div>
 
     <div class="tab-content">
-        <canvas class="js-canvas_Video" width="180" height="180"></canvas>
-        <button class="dataCollector" data-1hot="1" data-name="Class 2">学習させる</button>
+        
+        <button class="dataCollector" data-1hot="1" data-name="Class 2">up</button>
             <div class="progress">
                 <div class="js-progress-bar progress-bar" > <span class="js-canvas_Sample " ></span></div>
             </div>
-          
+
+          <button class="dataCollector" data-1hot="2" data-name="Class 3">down</button>
+          <div class="progress">
+            <div class="js-progress-bar progress-bar"> <span class="js-canvas_Sample " ></span></div>
+          </div>
     </div>
     
     <div class="tab-content">
@@ -56,10 +60,9 @@
   </div>
 </div>
  
-    <script src="tf.min.js" type="text/javascript"></script>
     
 
-    <script src="popup.js"></script>
+    <script src="js/popup.js"></script>
 </body>
 
 </html>

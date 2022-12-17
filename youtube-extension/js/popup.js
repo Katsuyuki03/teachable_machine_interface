@@ -13,7 +13,19 @@
 // });
 
 document.addEventListener('DOMContentLoaded', function(){
+  'use strict';
 
+  const v = document.getElementById("video")
+  
+  navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false,
+  }).then(s => {
+      v.srcObject = s;
+      v.play()
+  }).catch(e => {  
+  })
+  
   tabs = document.querySelectorAll('#js-tab li');
   for(i = 0; i < tabs.length; i++) {
     tabs[i].addEventListener('click', tabSwitch, false);
@@ -37,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function(){
     const index = arrayTabs.indexOf(this);
     
     document.querySelectorAll('.tab-content')[index].classList.add('active');
+    
   };
-
 
 });
 

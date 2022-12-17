@@ -13,8 +13,8 @@
       {
         "matches": ["*://*.youtube.com/*"],
         "js": [
-          "content.js",
-          "tf.min.js"]
+          "js/content.js",
+          "js/tf.min.js"]
       }
     ],
     "host_permissions": [
