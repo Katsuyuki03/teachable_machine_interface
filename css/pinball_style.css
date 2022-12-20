@@ -50,6 +50,7 @@ button.btn {
 }
 
 a.btn--green {
+  width: 100%;
   color: rgb(231, 231, 231);
   background-color: #00ff84;
   border-bottom: 5px solid #00ff84;

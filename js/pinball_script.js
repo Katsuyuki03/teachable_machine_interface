@@ -21,7 +21,7 @@ const video = document.createElement('video');
 // videoContainer.appendChild(video)
 
 const dataCollectorButtons = document.querySelectorAll('.dataCollector');
-const playerStatus = document.querySelectorAll('.js-status-Player');
+// const playerStatus = document.querySelectorAll('.js-status-Player');
 const canvasSample = document.querySelectorAll('.js-canvas_Sample');
 
 let mobilenet = undefined;
@@ -195,7 +195,8 @@ const predictLoop = () => {
         const highestIndex = prediction.argMax().arraySync();
         const predictionArray = prediction.arraySync();
 
-        playerStatus[index].innerText = `Player${index + 1} Prediction: ${CLASS_NAMES[highestIndex]} with ${Math.floor(predictionArray[highestIndex] * 100)}% confidence`;
+        // "classが何％がテキストとして出るようにする"
+        // playerStatus[index].innerText = `Player${index + 1} Prediction: ${CLASS_NAMES[highestIndex]} with ${Math.floor(predictionArray[highestIndex] * 100)}% confidence`;
 
         pose[index]=CLASS_NAMES[highestIndex];
         // pose = CLASS_NAMES[highestIndex];
