@@ -15,10 +15,11 @@ html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 62.5%;
+
 }
 
 .canvas{
-display: flex;
+display: inline-block;
 width: 800;
 height: 400;
 margin: 0 auto;
@@ -80,7 +81,7 @@ a.btn--green:hover {
   position: absolute;
   top: 50%;
   translate: 0 -50%;
-  transform: scale(-1,1);
+
 }
 
 .video-Capture:nth-child(odd) {
@@ -95,7 +96,7 @@ a.btn--green:hover {
 
 .dataCollector {
   border: solid 1px #333;
-  
+
 } 
 .center{
   text-align: center;
@@ -115,9 +116,8 @@ a.btn--green:hover {
 .js-status-Player{
   font-size: 30;
 }
-.jouge{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+
+
+.mirror{
+  transform: scale(-1,1);
 }
