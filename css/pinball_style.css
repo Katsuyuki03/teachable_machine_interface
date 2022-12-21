@@ -116,8 +116,3 @@ a.btn--green:hover {
 .js-status-Player{
   font-size: 30;
 }
-
-
-.mirror{
-  transform: scale(-1,1);
-}

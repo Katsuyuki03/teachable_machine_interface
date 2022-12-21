@@ -1,6 +1,7 @@
 body {
   font-family: helvetica, arial, sans-serif;
   background-color: #BAEFF6;
+  transform: scale(-1,1);
 }
 
 
@@ -47,7 +48,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
+  transform: scale(-1,1);
 }
 .start-btn{
   display: flex;
