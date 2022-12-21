@@ -411,6 +411,7 @@ let Rightp = 200;
 
 let startButton = document.getElementById("btn-start");
 let againButton = document.getElementById("btn-again");
+let movieButton = document.getElementById("btn-movie")
 
 startButton.disabled =true;
 
@@ -498,6 +499,14 @@ againButton.addEventListener(`click`, () => {
   ballSp.setSpeed(MAX_SPEED, 160);
   p1Score = 0;
   p2Score = 0;
+});
+
+movieButton.addEventListener(`click`, () => {
+  console.log('movieButton がクリックされました');
+  src="myVideo.mp4";
+  type="video/mp4";
+  videoElement.volume = 0;
+  videoElement.autoplay = true;
 });
 
 //score
