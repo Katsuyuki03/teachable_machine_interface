@@ -73,7 +73,7 @@ const dataGatherLoop = (index) => {
 
   const loop = () => {
     if (!video.paused && gatherDataState !== STOP_DATA_GATHER) {
-      const imageFeatures = tf.tidy(() => {
+        const imageFeatures = tf.tidy(() => {
         const videoFrameAsTensor = tf.browser.fromPixels(canvasList[canvasIndex]);
         const resizedTensorFrame = tf.image.resizeBilinear(
           videoFrameAsTensor,
@@ -485,7 +485,7 @@ startButton.addEventListener(`click`, () => {
     ballSp.setSpeed(MAX_SPEED, 160);
     p1Score = 0;
     p2Score = 0;
-  }, 10000);
+  }, 12000);
   
 });
 
@@ -501,13 +501,24 @@ againButton.addEventListener(`click`, () => {
   p2Score = 0;
 });
 
-movieButton.addEventListener(`click`, () => {
-  console.log('movieButton がクリックされました');
-  src="myVideo.mp4";
-  type="video/mp4";
-  videoElement.volume = 0;
-  videoElement.autoplay = true;
-});
+  const open = document.getElementById('btn-movie');
+  const close = document.getElementById('close');
+  const modal = document.getElementById('modal');
+  const mask = document.getElementById('mask');
+
+  open.addEventListener('click', function () {
+    console.log('movieButton がクリックされました');
+    modal.classList.remove('hidden');
+    mask.classList.remove('hidden');
+  });
+  close.addEventListener('click', function () {
+    modal.classList.add('hidden');
+    mask.classList.add('hidden');
+  });
+  mask.addEventListener('click', function () {
+    modal.classList.add('hidden');
+    mask.classList.add('hidden');
+  });
 
 //score
 let p1Score = 0;
@@ -600,7 +611,7 @@ function keyPressed() {
 }
 
 function update() {
-
+    // パネル上18 3回、下18　合計36
   if(pose[0] === "Class 1" && accuracy >= 85){ 
     Rightp= Rightp - 6
   }else if(pose[0] === "Class 2" && accuracy >= 85){
@@ -623,11 +634,11 @@ function update() {
 
   console.log(pose);
   // パドルがキャンバスから出ないように、上下の動きを制限し、
-  leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+  leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2 , height - leftPaddleSp.height / 2);
+  Leftp = leftPaddleSp.position.y;
 
-  rightPaddleSp.position.y = constrain(Rightp, rightPaddleSp.height / 2, height - rightPaddleSp.height / 2);
-
-
+  rightPaddleSp.position.y = constrain(Rightp, rightPaddleSp.height / 2 , height - rightPaddleSp.height / 2);
+  Rightp =  rightPaddleSp.position.y;
 
 
   // ボールは上の壁に当たったら跳ね返る
