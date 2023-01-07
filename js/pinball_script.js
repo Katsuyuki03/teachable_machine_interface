@@ -21,7 +21,7 @@ const video = document.createElement('video');
 // videoContainer.appendChild(video)
 
 const dataCollectorButtons = document.querySelectorAll('.dataCollector');
-const playerStatus = document.querySelectorAll('.js-status-Player');
+// const playerStatus = document.querySelectorAll('.js-status-Player');
 const canvasSample = document.querySelectorAll('.js-canvas_Sample');
 
 let mobilenet = undefined;
@@ -73,7 +73,7 @@ const dataGatherLoop = (index) => {
 
   const loop = () => {
     if (!video.paused && gatherDataState !== STOP_DATA_GATHER) {
-      const imageFeatures = tf.tidy(() => {
+        const imageFeatures = tf.tidy(() => {
         const videoFrameAsTensor = tf.browser.fromPixels(canvasList[canvasIndex]);
         const resizedTensorFrame = tf.image.resizeBilinear(
           videoFrameAsTensor,
@@ -195,7 +195,8 @@ const predictLoop = () => {
         const highestIndex = prediction.argMax().arraySync();
         const predictionArray = prediction.arraySync();
 
-        playerStatus[index].innerText = `Player${index + 1} Prediction: ${CLASS_NAMES[highestIndex]} with ${Math.floor(predictionArray[highestIndex] * 100)}% confidence`;
+        // "classが何％がテキストとして出るようにする"
+        // playerStatus[index].innerText = `Player${index + 1} Prediction: ${CLASS_NAMES[highestIndex]} with ${Math.floor(predictionArray[highestIndex] * 100)}% confidence`;
 
         pose[index]=CLASS_NAMES[highestIndex];
         // pose = CLASS_NAMES[highestIndex];
@@ -410,6 +411,7 @@ let Rightp = 200;
 
 let startButton = document.getElementById("btn-start");
 let againButton = document.getElementById("btn-again");
+let movieButton = document.getElementById("btn-movie")
 
 startButton.disabled =true;
 
@@ -483,7 +485,7 @@ startButton.addEventListener(`click`, () => {
     ballSp.setSpeed(MAX_SPEED, 160);
     p1Score = 0;
     p2Score = 0;
-  }, 10000);
+  }, 12000);
   
 });
 
@@ -498,6 +500,25 @@ againButton.addEventListener(`click`, () => {
   p1Score = 0;
   p2Score = 0;
 });
+
+  const open = document.getElementById('btn-movie');
+  const close = document.getElementById('close');
+  const modal = document.getElementById('modal');
+  const mask = document.getElementById('mask');
+
+  open.addEventListener('click', function () {
+    console.log('movieButton がクリックされました');
+    modal.classList.remove('hidden');
+    mask.classList.remove('hidden');
+  });
+  close.addEventListener('click', function () {
+    modal.classList.add('hidden');
+    mask.classList.add('hidden');
+  });
+  mask.addEventListener('click', function () {
+    modal.classList.add('hidden');
+    mask.classList.add('hidden');
+  });
 
 //score
 let p1Score = 0;
@@ -590,20 +611,20 @@ function keyPressed() {
 }
 
 function update() {
-
+    // パネル上18 3回、下18　合計36
   if(pose[0] === "Class 1" && accuracy >= 85){ 
-    Leftp= Leftp - 6
+    Rightp= Rightp - 6
   }else if(pose[0] === "Class 2" && accuracy >= 85){
-    Leftp= Leftp + 6
+    Rightp= Rightp + 6
   }else {
     direction = 0;
     vertical = 0;
   }
   
   if(pose[1] === "Class 3" && accuracy >= 85){ 
-    Rightp= Rightp - 6
+    Leftp= Leftp - 6
   }else if(pose[1] === "Class 4" && accuracy >= 85){
-    Rightp= Rightp + 6
+    Leftp= Leftp + 6
   }else{
     direction = 0;
     vertical = 0;
@@ -613,11 +634,11 @@ function update() {
 
   console.log(pose);
   // パドルがキャンバスから出ないように、上下の動きを制限し、
-  leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2, height - leftPaddleSp.height / 2);
+  leftPaddleSp.position.y = constrain(Leftp, leftPaddleSp.height / 2 , height - leftPaddleSp.height / 2);
+  Leftp = leftPaddleSp.position.y;
 
-  rightPaddleSp.position.y = constrain(Rightp, rightPaddleSp.height / 2, height - rightPaddleSp.height / 2);
-
-
+  rightPaddleSp.position.y = constrain(Rightp, rightPaddleSp.height / 2 , height - rightPaddleSp.height / 2);
+  Rightp =  rightPaddleSp.position.y;
 
 
   // ボールは上の壁に当たったら跳ね返る

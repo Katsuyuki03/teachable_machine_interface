@@ -1,12 +1,10 @@
 body {
   font-family: helvetica, arial, sans-serif;
   background-color: #BAEFF6;
+  transform: scale(-1,1);
 }
 
-h1 {
-  font-style: italic;
-  color: #FF6F00;
-}
+
 
 video {
   clear: both;
@@ -15,7 +13,7 @@ video {
   background: #000000;
   width: 640px;
   height: 480px;
-  transform: scale(-1,1);
+
 }
 
 button {
@@ -50,12 +48,11 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
+  transform: scale(-1,1);
 }
 .start-btn{
   display: flex;
   flex-direction: row;
-  width: 50%;
   margin: 0 auto;
-  max-width: 1060;
+  max-width: auto;
 }
