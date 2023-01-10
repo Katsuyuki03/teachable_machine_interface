@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let modeSound = document.getElementById('mode-sound');
   let learningUp = document.getElementById('learning-up');
   let learningDown = document.getElementById('learning-down');
-  let learningLeft = document.getElementById('learning-left');
+  let learningplay = document.getElementById('learning-play');
   let learningRight = document.getElementById('learning-right');
   let learningStop = document.getElementById('learning-stop');
   let opacityRange = document.getElementById('opacity-range');
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   learningDown.addEventListener('click', () => {
     chromTabsQueryArrow("down");
   });
-  learningLeft.addEventListener('click', () => {
+  learningplay.addEventListener('click', () => {
     chromTabsQueryArrow("left");
   });
   learningRight.addEventListener('click', () => {

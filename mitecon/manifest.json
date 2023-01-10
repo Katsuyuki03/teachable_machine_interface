@@ -1,5 +1,5 @@
 {
-  "name": "Extensions_befor",
+  "name": "mitecon",
   "description" : "Base Level Extension",
   "version": "1.0",
   "manifest_version": 2,
@@ -11,7 +11,7 @@
     "scripts": [ "bacground/main.js" ]
   },
   "content_scripts": [{
-    "matches": ["http://*/*", "https://*/*"],
+    "matches": ["http://*/*", "https://*/*","*://*.youtube.com/*"],
     "js": [
       "content/p5.js",
       "content/ml5.min.js",
@@ -30,5 +30,5 @@
       "description": "Opens hello.html"
     }
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://*.cdn.jsdelivr.net 'unsafe-eval'; object-src 'self'"
 }

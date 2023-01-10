@@ -13,6 +13,8 @@ let classifier, label2, interval;
 let isImageClassifier = true;
 let isSoundClassifier = true;
 
+let title = document.querySelector("#movie_player > div.html5-video-container > video");
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const logits = features.infer(video);
   if (request.mode == "image"){
@@ -33,9 +35,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('down');
     knn.addExample(logits, 'down');
   }
-  if (request.arrow == "left"){
-    console.log('left');
-    knn.addExample(logits, 'left');
+  if (request.arrow == "play"){
+    console.log('play');
+    knn.addExample(logits, 'play');
   }
   if (request.arrow == "right"){
     console.log('right');
@@ -103,12 +105,12 @@ function gotResult(error, result) {
       scrollBy(0, 40);
     }, 200);
     console.log('scrollDown');
-  } else if (label2 == 'left') {
+  } else if (label2 == 'play') {
     clearInterval(interval);
     interval = setInterval(() => {
-      scrollBy(-40, 0);
+      title.click();
     }, 200);
-    console.log('scrollLeft');
+    console.log('scrollplay');
   } else if (label2 == 'right') {
     clearInterval(interval);
     interval = setInterval(() => {
@@ -149,9 +151,9 @@ function goClassify() {
           } else if (label == 'down') {
             scrollBy(0, 40);
             console.log('scrollDown');
-          } else if (label == 'left') {
+          } else if (label == 'play') {
             scrollBy(-40, 0);
-            console.log('scrollLeft');
+            console.log('scrollplay');
           } else if (label == 'right') {
             scrollBy(40, 0);
             console.log('scrollRight');
@@ -179,8 +181,8 @@ function knnModelReady() {
 function keyPressed() {
   const logits = features.infer(video);
   if (key == 'l') {
-    knn.addExample(logits, 'left');
-    console.log('left');
+    knn.addExample(logits, 'play');
+    console.log('play');
   } else if (key == 'r') {
     knn.addExample(logits, 'right');
     console.log('right');
