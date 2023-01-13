@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chromTabsQueryArrow("down");
   });
   learningplay.addEventListener('click', () => {
-    chromTabsQueryArrow("left");
+    chromTabsQueryArrow("play");
   });
   learningRight.addEventListener('click', () => {
     chromTabsQueryArrow("right");

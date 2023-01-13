@@ -36,6 +36,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     knn.addExample(logits, 'down');
   }
   if (request.arrow == "play"){
+    title.click();
     console.log('play');
     knn.addExample(logits, 'play');
   }
@@ -110,7 +111,7 @@ function gotResult(error, result) {
     interval = setInterval(() => {
       title.click();
     }, 200);
-    console.log('scrollplay');
+    console.log('play');
   } else if (label2 == 'right') {
     clearInterval(interval);
     interval = setInterval(() => {
@@ -152,7 +153,7 @@ function goClassify() {
             scrollBy(0, 40);
             console.log('scrollDown');
           } else if (label == 'play') {
-            scrollBy(-40, 0);
+            title.click();
             console.log('scrollplay');
           } else if (label == 'right') {
             scrollBy(40, 0);
