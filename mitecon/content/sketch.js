@@ -14,6 +14,7 @@ let isImageClassifier = true;
 let isSoundClassifier = true;
 
 let title = document.querySelector("#movie_player > div.html5-video-container > video");
+let fullscreen = document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-fullscreen-button.ytp-button");
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const logits = features.infer(video);
@@ -40,9 +41,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('play');
     knn.addExample(logits, 'play');
   }
-  if (request.arrow == "right"){
-    console.log('right');
-    knn.addExample(logits, 'right');
+  if (request.arrow == "noisy"){
+    console.log('noisy');
+    knn.addExample(logits, 'noisy');
+  }
+  if (request.arrow == "silent"){
+    console.log('silent');
+    knn.addExample(logits, 'silent');
+  }
+  if (request.arrow == "screen"){
+    console.log('screen');
+    knn.addExample(logits, 'screen');
   }
   if (request.arrow == "stop"){
     console.log('stop');
@@ -112,13 +121,25 @@ function gotResult(error, result) {
       title.click();
     }, 200);
     console.log('play');
-  } else if (label2 == 'right') {
+  } else if (label2 == 'noisy') {
     clearInterval(interval);
     interval = setInterval(() => {
-      scrollBy(40, 0);
+      
     }, 200);
-    console.log('scrollRight');
-  } else if (label2 == 'stop') {
+    console.log('noisy');
+  } else if (label2 == 'silent') {
+    clearInterval(interval);
+    interval = setInterval(() => {
+    
+    }, 200);
+    console.log('silent');
+  } else if (label2 == 'screen') {
+    clearInterval(interval);
+    interval = setInterval(() => {
+      fullscreen.click();
+    }, 200);
+    console.log('screen');
+  }else if (label2 == 'stop') {
     clearInterval(interval);
     console.log('stop scroll');
   } else if (label2 == 'one') {
@@ -155,10 +176,16 @@ function goClassify() {
           } else if (label == 'play') {
             title.click();
             console.log('scrollplay');
-          } else if (label == 'right') {
-            scrollBy(40, 0);
-            console.log('scrollRight');
-          } else {
+          } else if (label == 'noisy') {
+            
+            console.log('scrollnoisy');
+          } else if (label == 'silent') {
+            
+            console.log('scrollsilent');
+          }else if (label == 'screen') {
+            fullscreen.click();
+            console.log('scrollscreen');
+          }else {
             console.log('stop');
           }
         }
@@ -184,16 +211,22 @@ function keyPressed() {
   if (key == 'l') {
     knn.addExample(logits, 'play');
     console.log('play');
-  } else if (key == 'r') {
-    knn.addExample(logits, 'right');
-    console.log('right');
-  } else if (key == 'u') {
+  } else if (key == 'n') {
+    knn.addExample(logits, 'noisy');
+    console.log('noisy');
+  } else if (key == 'q') {
+    knn.addExample(logits, 'silent');
+    console.log('silent');
+  }else if (key == 'u') {
     knn.addExample(logits, 'up');
     console.log('up');
   } else if (key == 'd') {
     knn.addExample(logits, 'down');
     console.log('down');
-  } else if (key == ' ') {
+  } else if (key == 'f') {
+    knn.addExample(logits, 'screen');
+    console.log('screen');
+  }else if (key == ' ') {
     knn.addExample(logits, 'stop');
     console.log('stop');
   } else if (key == 's') {

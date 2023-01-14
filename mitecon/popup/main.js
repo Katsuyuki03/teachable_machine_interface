@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let learningUp = document.getElementById('learning-up');
   let learningDown = document.getElementById('learning-down');
   let learningplay = document.getElementById('learning-play');
-  let learningRight = document.getElementById('learning-right');
+  let learningnoisy = document.getElementById('learning-noisy');
+  let learningsilent = document.getElementById('learning-silent');
+  let learningscreen = document.getElementById('learning-screen');
   let learningStop = document.getElementById('learning-stop');
   let opacityRange = document.getElementById('opacity-range');
   
@@ -31,8 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
   learningplay.addEventListener('click', () => {
     chromTabsQueryArrow("play");
   });
-  learningRight.addEventListener('click', () => {
-    chromTabsQueryArrow("right");
+  learningnoisy.addEventListener('click', () => {
+    chromTabsQueryArrow("noisy");
+  });
+  learningsilent.addEventListener('click', () => {
+    chromTabsQueryArrow("silent");
+  });
+  learningscreen.addEventListener('click', () => {
+    chromTabsQueryArrow("screen");
   });
   learningStop.addEventListener('click', () => {
     chromTabsQueryArrow("stop");

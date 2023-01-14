@@ -15,17 +15,19 @@
     <h2>画像による学習</h2>
     <input type="checkbox" name="image" id="mode-image" checked="checked">image
     <div>
-      <button id="learning-up">↑</button>
-      <button id="learning-down">↓</button>
+      <button id="learning-up">Up</button>
+      <button id="learning-down">Down</button>
       <button id="learning-play">play</button>
-      <button id="learning-right">→</button>
+      <button id="learning-noisy">音量大</button>
+      <button id="learning-silent">音量小</button>
+      <button id="learning-screen">[]</button>
       <button id="learning-stop">-</button>
       <p><input type="range" id="opacity-range" value="0.5" min="0" max="1" step="0.01"></p>
     </div>
     <h2>play or stop</h2>
     <h2>volume</h2>
     <input type="checkbox" name="sound" id="mode-sound" checked="checked">sound
-    <p>scroll: up, down, left, right, stop</p>
+    <p>scroll: up, down, play, noisy, silent, stop</p>
     <p>zoom: one, two, three</p>
     <script type="text/javascript" charset="utf-8" src="./main.js"></script>
   </body>
