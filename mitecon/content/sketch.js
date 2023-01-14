@@ -16,6 +16,8 @@ let isSoundClassifier = true;
 let title = document.querySelector("#movie_player > div.html5-video-container > video");
 let fullscreen = document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-fullscreen-button.ytp-button");
 
+
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const logits = features.infer(video);
   if (request.mode == "image"){
@@ -41,15 +43,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('play');
     knn.addExample(logits, 'play');
   }
-  if (request.arrow == "noisy"){
-    console.log('noisy');
-    knn.addExample(logits, 'noisy');
-  }
-  if (request.arrow == "silent"){
-    console.log('silent');
-    knn.addExample(logits, 'silent');
-  }
+  // if (request.arrow == "noisy"){
+  //   console.log('noisy');
+  //   knn.addExample(logits, 'noisy');
+  // }
+  // if (request.arrow == "silent"){
+  //   console.log('silent');
+  //   knn.addExample(logits, 'silent');
+  // }
   if (request.arrow == "screen"){
+    fullscreen.click();
     console.log('screen');
     knn.addExample(logits, 'screen');
   }
@@ -121,18 +124,18 @@ function gotResult(error, result) {
       title.click();
     }, 200);
     console.log('play');
-  } else if (label2 == 'noisy') {
-    clearInterval(interval);
-    interval = setInterval(() => {
+  // } else if (label2 == 'noisy') {
+  //   clearInterval(interval);
+  //   interval = setInterval(() => {
       
-    }, 200);
-    console.log('noisy');
-  } else if (label2 == 'silent') {
-    clearInterval(interval);
-    interval = setInterval(() => {
+  //   }, 200);
+  //   console.log('noisy');
+  // } else if (label2 == 'silent') {
+  //   clearInterval(interval);
+  //   interval = setInterval(() => {
     
-    }, 200);
-    console.log('silent');
+  //   }, 200);
+  //   console.log('silent');
   } else if (label2 == 'screen') {
     clearInterval(interval);
     interval = setInterval(() => {
@@ -176,12 +179,12 @@ function goClassify() {
           } else if (label == 'play') {
             title.click();
             console.log('scrollplay');
-          } else if (label == 'noisy') {
+          // } else if (label == 'noisy') {
             
-            console.log('scrollnoisy');
-          } else if (label == 'silent') {
+          //   console.log('scrollnoisy');
+          // } else if (label == 'silent') {
             
-            console.log('scrollsilent');
+          //   console.log('scrollsilent');
           }else if (label == 'screen') {
             fullscreen.click();
             console.log('scrollscreen');
@@ -211,12 +214,12 @@ function keyPressed() {
   if (key == 'l') {
     knn.addExample(logits, 'play');
     console.log('play');
-  } else if (key == 'n') {
-    knn.addExample(logits, 'noisy');
-    console.log('noisy');
-  } else if (key == 'q') {
-    knn.addExample(logits, 'silent');
-    console.log('silent');
+  // } else if (key == 'n') {
+  //   knn.addExample(logits, 'noisy');
+  //   console.log('noisy');
+  // } else if (key == 'q') {
+  //   knn.addExample(logits, 'silent');
+  //   console.log('silent');
   }else if (key == 'u') {
     knn.addExample(logits, 'up');
     console.log('up');
