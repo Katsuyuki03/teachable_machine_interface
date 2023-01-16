@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
   let modeImage = document.getElementById('mode-image');
-  let modeSound = document.getElementById('mode-sound');
   let learningUp = document.getElementById('learning-up');
   let learningDown = document.getElementById('learning-down');
   let learningplay = document.getElementById('learning-play');
@@ -18,9 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // contentsの方に送れる！
     chromTabsQueryMode("image", modeImage.checked);
-  });
-  modeSound.addEventListener('change', () => {
-    chromTabsQueryMode("sound", modeSound.checked);
   });
   
   learningUp.addEventListener('click', () => {

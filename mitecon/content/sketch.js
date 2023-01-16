@@ -11,7 +11,6 @@ let c;
 let classifier, label2, interval;
 
 let isImageClassifier = true;
-let isSoundClassifier = true;
 
 function titleEvent() {
   let title = document.querySelector("#movie_player > div.html5-video-container > video");
@@ -60,11 +59,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.mode == "image"){
     console.log('image: ' + request.checked);
     isImageClassifier = request.checked;
-    // sendResponse("goodbye");
-  }
-  if (request.mode == "sound"){
-    console.log('sound: ' + request.checked);
-    isSoundClassifier = request.checked;
     // sendResponse("goodbye");
   }
   if (request.arrow == "up"){
@@ -137,10 +131,7 @@ function gotResult(error, result) {
   if (error) {
     console.log(error);
     return;
-  } else if(!isSoundClassifier){
-    clearInterval(interval);
-    return;
-  }
+  } 
   // log the result
   if(result[0].confidence > 0.97)
     label2 = result[0].label;
