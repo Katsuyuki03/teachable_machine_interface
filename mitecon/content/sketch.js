@@ -23,14 +23,14 @@ function fullscreenEvent() {
   fullscreen.click();
 }
 
-// function noisyEvent() {
-  
-  
-// }
+function noisyEvent() {
+  let videoElem = document.querySelector("#movie_player > div.html5-video-container > video");
+  videoElem.volume = videoElem.volume + 0.25;
+}
 
 function silentEvent() {  
-  videoElem = document.querySelector("#movie_player > div.html5-video-container > video");
-  videoElem.volume = videoElem.volume - 1;
+  let videoElem = document.querySelector("#movie_player > div.html5-video-container > video");
+  videoElem.volume = videoElem.volume - 0.25;
 }
 
 function debounce(fn, late) {
@@ -42,15 +42,17 @@ function debounce(fn, late) {
     timer = setTimeout(function() {
       fn();
     }, late);
-    console.log(timer);
+    // console.log(timer);
   }
 }
 
-const debounceClickEvent = debounce(titleEvent,2000);
+const titleClickEvent = debounce(titleEvent,2000);
 
 const lateClickEvent = debounce(fullscreenEvent,2000);
 
-const silentlickEvent = debounce(silentEvent,1000);
+const silentClickEvent = debounce(silentEvent,1000);
+
+const noisyClickEvent = debounce(noisyEvent,1000);
 
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -74,16 +76,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     knn.addExample(logits, 'down');
   }
   if (request.arrow == "play"){
-    debounceClickEvent();
+    titleClickEvent();
     console.log('play');
     knn.addExample(logits, 'play');
   }
   if (request.arrow == "noisy"){
+    noisyClickEvent();
     console.log('noisy');
     knn.addExample(logits, 'noisy');
   }
   if (request.arrow == "silent"){
-    silentlickEvent();
+    silentClickEvent();
     console.log('silent');
     knn.addExample(logits, 'silent');
   }
@@ -158,19 +161,19 @@ function gotResult(error, result) {
   } else if (label2 == 'play') {
     clearInterval(interval);
     interval = setInterval(() => {
-      debounceClickEvent();
+      titleClickEvent();
     }, 200);
     console.log('play');
   } else if (label2 == 'noisy') {
     clearInterval(interval);
     interval = setInterval(() => {
-      
+      noisyClickEvent();
     }, 200);
     console.log('noisy');
   } else if (label2 == 'silent') {
     clearInterval(interval);
     interval = setInterval(() => {
-      silentlickEvent();
+      silentClickEvent();
     }, 200);
     console.log('silent');
   } else if (label2 == 'screen') {
@@ -214,13 +217,13 @@ function goClassify() {
             scrollBy(0, 40);
             console.log('scrollDown');
           } else if (label == 'play') {
-            debounceClickEvent();
+            titleClickEvent();
             console.log('scrollplay');
           } else if (label == 'noisy') {
-            
+            noisyClickEvent();
             console.log('scrollnoisy');
           } else if (label == 'silent') {
-            silentlickEvent();
+            silentClickEvent();
             console.log('scrollsilent');
           }else if (label == 'screen') {
             lateClickEvent();
