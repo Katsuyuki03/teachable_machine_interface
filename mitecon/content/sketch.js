@@ -13,15 +13,17 @@ let classifier, label2, interval;
 let isImageClassifier = true;
 let isSoundClassifier = true;
 
-let fullscreen = document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-fullscreen-button.ytp-button");
-
-function clickEvent() {
+function titleEvent() {
   let title = document.querySelector("#movie_player > div.html5-video-container > video");
   title.click();
   console.log('clickしました。');
 }
 
-const lateTime = 10;
+function fullscreenEvent() {
+  let fullscreen = document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-fullscreen-button.ytp-button");
+  fullscreen.click();
+  console.log('clickしました。');
+}
 
 function debounce(fn, late) {
   let timer;
@@ -36,8 +38,9 @@ function debounce(fn, late) {
   }
 }
 
-window.addEventListener('click', debounce(clickEvent, lateTime));
+const debounceClickEvent = debounce(titleEvent,2000);
 
+const lateClickEvent = debounce(fullscreenEvent,2000);
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const logits = features.infer(video);
   if (request.mode == "image"){
@@ -59,7 +62,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     knn.addExample(logits, 'down');
   }
   if (request.arrow == "play"){
-    clickEvent();
+    debounceClickEvent();
     console.log('play');
     knn.addExample(logits, 'play');
   }
@@ -72,7 +75,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   //   knn.addExample(logits, 'silent');
   // }
   if (request.arrow == "screen"){
-    fullscreen.click();
+    lateClickEvent();
     console.log('screen');
     knn.addExample(logits, 'screen');
   }
@@ -141,7 +144,7 @@ function gotResult(error, result) {
   } else if (label2 == 'play') {
     clearInterval(interval);
     interval = setInterval(() => {
-      clickEvent();
+      debounceClickEvent();
     }, 200);
     console.log('play');
   // } else if (label2 == 'noisy') {
@@ -159,7 +162,7 @@ function gotResult(error, result) {
   } else if (label2 == 'screen') {
     clearInterval(interval);
     interval = setInterval(() => {
-      fullscreen.click();
+      lateClickEvent();
     }, 200);
     console.log('screen');
   }else if (label2 == 'stop') {
@@ -197,7 +200,7 @@ function goClassify() {
             scrollBy(0, 40);
             console.log('scrollDown');
           } else if (label == 'play') {
-            clickEvent();
+            debounceClickEvent();
             console.log('scrollplay');
           // } else if (label == 'noisy') {
             
@@ -206,7 +209,7 @@ function goClassify() {
             
           //   console.log('scrollsilent');
           }else if (label == 'screen') {
-            fullscreen.click();
+            lateClickEvent();
             console.log('scrollscreen');
           }else {
             console.log('stop');
