@@ -102,7 +102,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 function setup() {
   c = createCanvas(320, 240);
   c.style('position', 'fixed');
-  c.style('top', '0');
+  c.style('top' , '0');
+  c.style('right' , '0');
   c.style('opacity', '0.1');
   c.style('z-index', '1000');
   video = createCapture(VIDEO);
@@ -113,7 +114,7 @@ function setup() {
   labelP = createP('need training data');
   labelP.style('position', 'fixed');
   labelP.style('top', '230px');
-
+  labelP.style('right', '100px');
 
   // Options for the SpeechCommands18w model, the default probabilityThreshold is 0
   const options = {
@@ -140,13 +141,13 @@ function gotResult(error, result) {
   if (label2 == 'up') {
     clearInterval(interval);
     interval = setInterval(() => {
-      scrollBy(0, -40);
+      scrollBy(0, -5);
     }, 200);
     console.log('scrollUp');
   } else if (label2 == 'down') {
     clearInterval(interval);
     interval = setInterval(() => {
-      scrollBy(0, 40);
+      scrollBy(0, 5);
     }, 200);
     console.log('scrollDown');
   } else if (label2 == 'play') {
@@ -193,10 +194,10 @@ function goClassify() {
         if (isImageClassifier) {
           label = result.label;
           if (label == 'up') {
-            scrollBy(0, -40);
+            scrollBy(0, -5);
             console.log('scrollUp');
           } else if (label == 'down') {
-            scrollBy(0, 40);
+            scrollBy(0, 5);
             console.log('scrollDown');
           } else if (label == 'play') {
             titleClickEvent();
