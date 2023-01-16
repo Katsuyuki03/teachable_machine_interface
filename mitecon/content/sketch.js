@@ -13,10 +13,30 @@ let classifier, label2, interval;
 let isImageClassifier = true;
 let isSoundClassifier = true;
 
-let title = document.querySelector("#movie_player > div.html5-video-container > video");
 let fullscreen = document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-fullscreen-button.ytp-button");
 
+function clickEvent() {
+  let title = document.querySelector("#movie_player > div.html5-video-container > video");
+  title.click();
+  console.log('clickしました。');
+}
 
+const lateTime = 10;
+
+function debounce(fn, late) {
+  let timer;
+  return () => {
+    // setTimeoutでinterval秒処理を待ち関数を実行
+    // debounce関数ががinterval秒内で複数呼び出されても、都度clearTimeoutを実行し、最後の1回だけ実行する
+    clearTimeout(timer);
+    timer = setTimeout(function() {
+      fn();
+    }, late);
+    console.log(timer);
+  }
+}
+
+window.addEventListener('click', debounce(clickEvent, lateTime));
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const logits = features.infer(video);
@@ -39,7 +59,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     knn.addExample(logits, 'down');
   }
   if (request.arrow == "play"){
-    title.click();
+    clickEvent();
     console.log('play');
     knn.addExample(logits, 'play');
   }
@@ -121,7 +141,7 @@ function gotResult(error, result) {
   } else if (label2 == 'play') {
     clearInterval(interval);
     interval = setInterval(() => {
-      title.click();
+      clickEvent();
     }, 200);
     console.log('play');
   // } else if (label2 == 'noisy') {
@@ -177,7 +197,7 @@ function goClassify() {
             scrollBy(0, 40);
             console.log('scrollDown');
           } else if (label == 'play') {
-            title.click();
+            clickEvent();
             console.log('scrollplay');
           // } else if (label == 'noisy') {
             
