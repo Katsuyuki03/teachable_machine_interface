@@ -3,3 +3,9 @@
     margin-left: 0;
     margin-right: 0;
 }
+.flex-side {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  
+  }

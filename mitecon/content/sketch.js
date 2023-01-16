@@ -107,7 +107,7 @@ function setup() {
   c.style('opacity', '0.1');
   c.style('z-index', '1000');
   video = createCapture(VIDEO);
-  video.style("transform", "scale(-1,1)");
+  video.style('transform', 'scale(-1,1)');
   video.hide();
   features = ml5.featureExtractor('MobileNet', knnModelReady);
   knn = ml5.KNNClassifier();
