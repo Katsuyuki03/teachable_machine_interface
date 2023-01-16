@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let learningscreen = document.getElementById('learning-screen');
   let learningStop = document.getElementById('learning-stop');
   let opacityRange = document.getElementById('opacity-range');
-  
 
   modeImage.addEventListener('change', () => {
     // backgroundには遅れるがcontentsの方には送れない
@@ -33,12 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
   learningplay.addEventListener('click', () => {
     chromTabsQueryArrow("play");
   });
-  // learningnoisy.addEventListener('click', () => {
-  //   chromTabsQueryArrow("noisy");
-  // });
-  // learningsilent.addEventListener('click', () => {
-  //   chromTabsQueryArrow("silent");
-  // });
+  learningnoisy.addEventListener('click', () => {
+    chromTabsQueryArrow("noisy");
+  });
+  learningsilent.addEventListener('click', () => {
+    chromTabsQueryArrow("silent");
+  });
   learningscreen.addEventListener('click', () => {
     chromTabsQueryArrow("screen");
   });

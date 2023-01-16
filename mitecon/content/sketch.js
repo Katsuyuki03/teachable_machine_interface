@@ -16,13 +16,21 @@ let isSoundClassifier = true;
 function titleEvent() {
   let title = document.querySelector("#movie_player > div.html5-video-container > video");
   title.click();
-  console.log('clickしました。');
 }
 
 function fullscreenEvent() {
   let fullscreen = document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-fullscreen-button.ytp-button");
   fullscreen.click();
-  console.log('clickしました。');
+}
+
+// function noisyEvent() {
+  
+  
+// }
+
+function silentEvent() {  
+  videoElem = document.querySelector("#movie_player > div.html5-video-container > video");
+  videoElem.volume = videoElem.volume - 1;
 }
 
 function debounce(fn, late) {
@@ -41,6 +49,10 @@ function debounce(fn, late) {
 const debounceClickEvent = debounce(titleEvent,2000);
 
 const lateClickEvent = debounce(fullscreenEvent,2000);
+
+const silentlickEvent = debounce(silentEvent,1000);
+
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const logits = features.infer(video);
   if (request.mode == "image"){
@@ -66,14 +78,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('play');
     knn.addExample(logits, 'play');
   }
-  // if (request.arrow == "noisy"){
-  //   console.log('noisy');
-  //   knn.addExample(logits, 'noisy');
-  // }
-  // if (request.arrow == "silent"){
-  //   console.log('silent');
-  //   knn.addExample(logits, 'silent');
-  // }
+  if (request.arrow == "noisy"){
+    console.log('noisy');
+    knn.addExample(logits, 'noisy');
+  }
+  if (request.arrow == "silent"){
+    silentlickEvent();
+    console.log('silent');
+    knn.addExample(logits, 'silent');
+  }
   if (request.arrow == "screen"){
     lateClickEvent();
     console.log('screen');
@@ -103,6 +116,7 @@ function setup() {
   labelP = createP('need training data');
   labelP.style('position', 'fixed');
   labelP.style('top', '230px');
+
 
   // Options for the SpeechCommands18w model, the default probabilityThreshold is 0
   const options = {
@@ -147,18 +161,18 @@ function gotResult(error, result) {
       debounceClickEvent();
     }, 200);
     console.log('play');
-  // } else if (label2 == 'noisy') {
-  //   clearInterval(interval);
-  //   interval = setInterval(() => {
+  } else if (label2 == 'noisy') {
+    clearInterval(interval);
+    interval = setInterval(() => {
       
-  //   }, 200);
-  //   console.log('noisy');
-  // } else if (label2 == 'silent') {
-  //   clearInterval(interval);
-  //   interval = setInterval(() => {
-    
-  //   }, 200);
-  //   console.log('silent');
+    }, 200);
+    console.log('noisy');
+  } else if (label2 == 'silent') {
+    clearInterval(interval);
+    interval = setInterval(() => {
+      silentlickEvent();
+    }, 200);
+    console.log('silent');
   } else if (label2 == 'screen') {
     clearInterval(interval);
     interval = setInterval(() => {
@@ -202,12 +216,12 @@ function goClassify() {
           } else if (label == 'play') {
             debounceClickEvent();
             console.log('scrollplay');
-          // } else if (label == 'noisy') {
+          } else if (label == 'noisy') {
             
-          //   console.log('scrollnoisy');
-          // } else if (label == 'silent') {
-            
-          //   console.log('scrollsilent');
+            console.log('scrollnoisy');
+          } else if (label == 'silent') {
+            silentlickEvent();
+            console.log('scrollsilent');
           }else if (label == 'screen') {
             lateClickEvent();
             console.log('scrollscreen');
@@ -237,12 +251,12 @@ function keyPressed() {
   if (key == 'l') {
     knn.addExample(logits, 'play');
     console.log('play');
-  // } else if (key == 'n') {
-  //   knn.addExample(logits, 'noisy');
-  //   console.log('noisy');
-  // } else if (key == 'q') {
-  //   knn.addExample(logits, 'silent');
-  //   console.log('silent');
+  } else if (key == 'n') {
+    knn.addExample(logits, 'noisy');
+    console.log('noisy');
+  } else if (key == 'q') {
+    knn.addExample(logits, 'silent');
+    console.log('silent');
   }else if (key == 'u') {
     knn.addExample(logits, 'up');
     console.log('up');
