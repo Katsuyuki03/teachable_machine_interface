@@ -176,16 +176,7 @@ function gotResult(error, result) {
   }else if (label2 == 'stop') {
     clearInterval(interval);
     console.log('stop scroll');
-  } else if (label2 == 'one') {
-    document.body.style.zoom = 1;
-    console.log('zoom');
-  } else if (label2 == 'two') {
-    document.body.style.zoom = 1.5;
-    console.log('zoom');
-  } else if (label2 == 'three') {
-    document.body.style.zoom = 2;
-    console.log('zoom');
-  }
+  } 
 }
 
 function goClassify() {
