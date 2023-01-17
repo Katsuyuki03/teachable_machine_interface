@@ -45,9 +45,9 @@ function debounce(fn, late) {
   }
 }
 
-const titleClickEvent = debounce(titleEvent,2000);
+const titleClickEvent = debounce(titleEvent,1500);
 
-const lateClickEvent = debounce(fullscreenEvent,2000);
+const lateClickEvent = debounce(fullscreenEvent,1500);
 
 const silentClickEvent = debounce(silentEvent,1000);
 
@@ -106,8 +106,8 @@ function setup() {
   c.style('right' , '0');
   c.style('opacity', '0.1');
   c.style('z-index', '1000');
+  c.style('transform', 'scale(-1,1)');
   video = createCapture(VIDEO);
-  video.style('transform', 'scale(-1,1)');
   video.hide();
   features = ml5.featureExtractor('MobileNet', knnModelReady);
   knn = ml5.KNNClassifier();
