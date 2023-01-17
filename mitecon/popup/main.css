@@ -1,5 +1,6 @@
 .haiiro{
     background-color: rgb(220, 220, 220);
+    margin-top: 0;
     margin-left: 0;
     margin-right: 0;
 }
@@ -7,5 +8,22 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-  
+    align-items: center;
+    width: 100%;
+    gap: 25px;
   }
+.center{
+    text-align: center;
+    margin:0 ;
+  }
+.kesu{
+    margin : 0;
+}
+.haku{
+    align-items: center;
+    margin: 5;
+    padding: 5;
+}
+.midasi{
+    padding: 0 10px;
+}

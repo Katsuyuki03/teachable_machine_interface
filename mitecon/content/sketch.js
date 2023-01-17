@@ -120,7 +120,7 @@ function setup() {
   const options = {
     probabilityThreshold: 0.7
   };
-  classifier = ml5.soundClassifier('SpeechCommands18w', options, modelReady);
+  // classifier = ml5.soundClassifier('SpeechCommands18w', options, modelReady);
 }
 
 function modelReady() {
@@ -230,35 +230,6 @@ function knnModelReady() {
   //   console.log('knn loaded');
   //   modelLoaded = true;
   // });
-}
-
-function keyPressed() {
-  const logits = features.infer(video);
-  if (key == 'l') {
-    knn.addExample(logits, 'play');
-    console.log('play');
-  } else if (key == 'n') {
-    knn.addExample(logits, 'noisy');
-    console.log('noisy');
-  } else if (key == 'q') {
-    knn.addExample(logits, 'silent');
-    console.log('silent');
-  }else if (key == 'u') {
-    knn.addExample(logits, 'up');
-    console.log('up');
-  } else if (key == 'd') {
-    knn.addExample(logits, 'down');
-    console.log('down');
-  } else if (key == 'f') {
-    knn.addExample(logits, 'screen');
-    console.log('screen');
-  }else if (key == ' ') {
-    knn.addExample(logits, 'stop');
-    console.log('stop');
-  } else if (key == 's') {
-    knn.save('model.json');
-    // save(knn, 'model.json');
-  }
 }
 
 function draw() {
