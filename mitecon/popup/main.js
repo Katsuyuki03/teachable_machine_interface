@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let learningscreen = document.getElementById('learning-screen');
   let learningStop = document.getElementById('learning-stop');
   let opacityRange = document.getElementById('opacity-range');
+  // const canvasSample = document.querySelectorAll('.js-canvas_Sample');
+  const bar = document.querySelectorAll('.js-progress-bar');
+
 
   modeImage.addEventListener('change', () => {
     // backgroundには遅れるがcontentsの方には送れない
@@ -20,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   learningUp.addEventListener('click', () => {
+    
     chromTabsQueryArrow("up");
   });
   learningDown.addEventListener('click', () => {
@@ -46,7 +50,23 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: opacityRange.value
       });
     });
+
+  
   });
+
+  
+
+  bar.addEventListener("change", () => {
+
+    bar[canvasIndex].style.width = Math.min(learningStop,100)+"%";
+
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        bar: bar.value
+      });
+    });
+  });
+
 
   function chromTabsQueryMode (mode, checked) {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {

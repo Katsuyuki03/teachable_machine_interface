@@ -12,6 +12,11 @@
     width: 100%;
     gap: 25px;
   }
+.flex-tate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .center{
     text-align: center;
     margin:0 ;
@@ -26,4 +31,14 @@
 }
 .midasi{
     padding: 0 10px;
+}
+.progress{
+    border: 1px solid;
+    width: 100%;
+    height: 10px;
+  }
+.progress-bar{
+    background: rgb(0, 119, 255);
+    width: 0;
+    height: 100%;
 }
