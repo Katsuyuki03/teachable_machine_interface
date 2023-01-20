@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // const bar = document.querySelectorAll('.js-progress-bar');
-  const number = { count: 0 };
+  const number = [20,50,50,50,50,50,50];
 
   modeImage.addEventListener('change', () => {
     // backgroundには遅れるがcontentsの方には送れない
@@ -32,31 +32,38 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   learningUp.addEventListener('click', () => {
-    barUp[0].style.width = Math.min( ++number.count*10 , 100) + "%" ;
+    number[1] = number[1] + 30;
+    barUp[0].style.width = Math.min( number[1]*0.5 , 100) + "%" ;
     chromTabsQueryArrow("up");
   });
   learningDown.addEventListener('click', () => {
-    barDown[0].style.width = Math.min( ++number.count*10 , 100) + "%" ;
+    number[2] = number[2] + 30;
+    barDown[0].style.width = Math.min( number[2]*0.5 , 100) + "%" ;
     chromTabsQueryArrow("down");
   });
   learningplay.addEventListener('click', () => {
-    barplay[0].style.width = Math.min( ++number.count*10 , 100) + "%" ;
+    number[3] = number[3] + 30;
+    barplay[0].style.width = Math.min( number[3]*0.5 , 100) + "%" ;
     chromTabsQueryArrow("play");
   });
   learningnoisy.addEventListener('click', () => {
-    barnoisy[0].style.width = Math.min( ++number.count*10 , 100) + "%" ;
+    number[4] = number[4] + 30;
+    barnoisy[0].style.width = Math.min( number[4]*0.5 , 100) + "%" ;
     chromTabsQueryArrow("noisy");
   });
   learningsilent.addEventListener('click', () => {
-    barsilent[0].style.width = Math.min( ++number.count*10 , 100) + "%" ;
+    number[5] = number[5] + 30;
+    barsilent[0].style.width = Math.min( number[5]*0.5 , 100) + "%" ;
     chromTabsQueryArrow("silent");
   });
   learningscreen.addEventListener('click', () => {
-    barscreen[0].style.width = Math.min( ++number.count*10 , 100) + "%" ;
+    number[6] = number[6] + 30;
+    barscreen[0].style.width = Math.min( number[6]*0.5 , 100) + "%" ;
     chromTabsQueryArrow("screen");
   });
   learningStop.addEventListener('click', () => {
-    barStop[0].style.width = Math.min( ++number.count*5 , 100) + "%" ;
+    number[0] = number[0] + 10;
+    barStop[0].style.width = Math.min( 0 + number[0], 100) + "%" ;
     chromTabsQueryArrow("stop");
   });
   opacityRange.addEventListener('change', () => {

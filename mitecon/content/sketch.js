@@ -2,8 +2,8 @@ let video;
 let features;
 let knn;
 let ready = false;
-let label = 'nothing';
-let labelP = '';
+// let label = 'nothing';
+// let labelP = '';
 let modelLoaded = false;
 
 let c;
@@ -100,10 +100,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function setup() {
-  c = createCanvas(320, 240);
+  c = createCanvas(416, 234);
   c.style('position', 'fixed');
-  c.style('top' , '0');
-  c.style('right' , '0');
+  c.style('top' , '100px');
+  c.style('left' , '10px');
   c.style('opacity', '0.1');
   c.style('z-index', '1000');
   c.style('transform', 'scale(-1,1)');
@@ -111,10 +111,10 @@ function setup() {
   video.hide();
   features = ml5.featureExtractor('MobileNet', knnModelReady);
   knn = ml5.KNNClassifier();
-  labelP = createP('need training data');
-  labelP.style('position', 'fixed');
-  labelP.style('top', '230px');
-  labelP.style('right', '100px');
+  // labelP = createP('need training data');
+  // labelP.style('position', 'fixed');
+  // labelP.style('top', '230px');
+  // labelP.style('right', '100px');
 
   // Options for the SpeechCommands18w model, the default probabilityThreshold is 0
   const options = {
@@ -217,7 +217,7 @@ function goClassify() {
         }
         
       }
-      labelP.html(label);
+      // labelP.html(label);
       goClassify();
     }
   });
@@ -233,9 +233,9 @@ function knnModelReady() {
 }
 
 function draw() {
-  image(video, 0, 0, 320, 240);
+  image(video, 0, 0, 416, 234);
   if (!isImageClassifier) {
-    labelP.html("");
+    // labelP.html("");
     c.style("opacity", 0);
   }
   if (!ready && knn.getNumLabels() > 0) {
