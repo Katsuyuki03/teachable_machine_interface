@@ -36,9 +36,10 @@
           <path d="M9.43628 8.75C9.43628 3.9375 13.6826 0 18.8726 0C24.0625 0 28.3088 3.9375 28.3088 8.75C28.3088 13.5625 24.0625 17.5 18.8726 17.5C13.6826 17.5 9.43628 13.5625 9.43628 8.75ZM37.7451 35H0V32.5063C0 28.9625 2.35907 25.8125 5.75613 24.4125C9.76655 22.7938 14.1544 21.875 18.8726 21.875C23.5907 21.875 27.9786 22.7938 31.989 24.4125C35.386 25.8125 37.7451 28.9625 37.7451 32.5063V35Z" fill="black"/>
         </svg>
       </div>
+
       <div class="flex-tate">
         <div class="progress">
-          <div class="js-progress-bar progress-bar" > <span class="js-canvas_Sample " ></span></div>
+          <div class="stop-progress-bar" ></div>
         </div>
         <div class="haku">
           <div class="center">
@@ -53,9 +54,16 @@
       <h2>スクロール</h2>
     </div>
     <div class="flex-side">
-      <div class="haku">
+      <div class="flex-tate">
+        <div class="progress">
+          <div class="up-progress-bar" ></div>
+        </div>
+        
+        <div class="haku">
         <button id="learning-up">上にスクロール</button>
       </div>
+      </div>
+      
       
       <div class="haku">
         <svg width="99" height="37" viewBox="0 0 99 37" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,10 +72,16 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M94.305 6.45714C94.305 5.4294 93.8977 4.44375 93.1726 3.71702C92.4476 2.9903 91.4642 2.58203 90.4389 2.58203C89.4135 2.58203 88.4301 2.9903 87.7051 3.71702C86.98 4.44375 86.5727 5.4294 86.5727 6.45714C86.5727 7.48488 86.98 8.47053 87.7051 9.19725C88.4301 9.92398 89.4135 10.3322 90.4389 10.3322C91.4642 10.3322 92.4476 9.92398 93.1726 9.19725C93.8977 8.47053 94.305 7.48488 94.305 6.45714ZM97.7459 23.5871C97.474 23.8592 97.1055 24.012 96.7213 24.012C96.3371 24.012 95.9687 23.8592 95.6968 23.5871L91.8887 19.7701V32.1297C91.8887 32.5151 91.7359 32.8847 91.464 33.1573C91.1921 33.4298 90.8234 33.5829 90.4389 33.5829C90.0544 33.5829 89.6856 33.4298 89.4137 33.1573C89.1418 32.8847 88.9891 32.5151 88.9891 32.1297V19.7701L85.1809 23.5871C85.0482 23.7298 84.8881 23.8443 84.7103 23.9238C84.5324 24.0032 84.3405 24.0459 84.1458 24.0493C83.9511 24.0528 83.7578 24.0169 83.5772 23.9438C83.3967 23.8707 83.2327 23.7619 83.095 23.6239C82.9574 23.486 82.8488 23.3216 82.7759 23.1406C82.703 22.9597 82.6672 22.7659 82.6706 22.5708C82.6741 22.3756 82.7167 22.1832 82.7959 22.005C82.8752 21.8267 82.9894 21.6663 83.1319 21.5332L89.4143 15.2362L90.4389 14.2074L91.4634 15.2343L97.7459 21.5313C97.8806 21.6663 97.9875 21.8265 98.0604 22.0029C98.1333 22.1792 98.1708 22.3683 98.1708 22.5592C98.1708 22.7501 98.1333 22.9391 98.0604 23.1155C97.9875 23.2919 97.8806 23.4521 97.7459 23.5871Z" fill="black"/>
         </svg>
       </div>
-      
-      <div class="haku">
+      <div class="flex-tate">
+        <div class="progress">
+          <div class="down-progress-bar" ></div>
+        </div>
+        
+        <div class="haku">
         <button id="learning-down">下にスクロール</button>
+        </div>
       </div>
+      
       
     </div>
 
@@ -82,9 +96,16 @@
           <rect x="51" y="4" width="8" height="21" fill="black"/>
           </svg>
         </div>
-        
-        <div class="haku">
+
+        <div class="flex-tate">
+
+          <div class="progress">
+            <div class="play-progress-bar" ></div>
+          </div>
+          
+          <div class="haku">
           <button id="learning-play">再生と停止を学習させる</button>
+          </div>
         </div>
         
       </div>
@@ -93,9 +114,16 @@
       <h2>音量</h2>
     </div>  
     <div class="flex-side">
-      <div class="haku">
+
+      <div class="flex-tate">
+        <div class="progress">
+          <div class="noisy-progress-bar" ></div>
+        </div>
+        <div class="haku">
         <button id="learning-noisy">音量大</button>
       </div>
+      </div>
+      
       
 
       <div class="haku">
@@ -107,9 +135,15 @@
         </svg>
       </div>
       
+      <div class="flex-tate">
+        <div class="progress">
+          <div class="silent-progress-bar" ></div>
+        </div>
         <div class="haku">
           <button id="learning-silent">音量小</button>
         </div>
+      </div>
+        
       
     </div>
 
@@ -130,9 +164,16 @@
         </svg>
       </div>
       
-      <div class="haku">
+      <div class="flex-tate">
+        <div class="progress">
+          <div class="screen-progress-bar"></div>
+        </div>
+        
+        <div class="haku">
         <button id="learning-screen">大画面を学習させる</button>
+        </div>
       </div>
+      
       
     </div>
     <script type="text/javascript" charset="utf-8" src="./main.js"></script>
