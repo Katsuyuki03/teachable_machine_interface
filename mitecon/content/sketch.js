@@ -102,8 +102,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 function setup() {
   c = createCanvas(416, 234);
   c.style('position', 'fixed');
-  c.style('top' , '100px');
-  c.style('left' , '10px');
+  c.style('bottom' , '30px');
+  c.style('left' , '10%');
   c.style('opacity', '0.1');
   c.style('z-index', '1000');
   c.style('transform', 'scale(-1,1)');

@@ -9,16 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let learningStop = document.getElementById('learning-stop');
   let opacityRange = document.getElementById('opacity-range');
 
-  // const barUp = document.querySelectorAll('.up-progress-bar');
-  // const barDown = document.querySelectorAll('.down-progress-bar');
-  // const barplay = document.querySelectorAll('.play-progress-bar');
-  // const barnoisy = document.querySelectorAll('.noisy-progress-bar');
-  // const barsilent = document.querySelectorAll('.silent-progress-bar');
-  // const barscreen = document.querySelectorAll('.screen-progress-bar');
-  // const barStop = document.querySelectorAll('.stop-progress-bar');
+  const barUp = document.querySelectorAll('.up-progress-bar');
+  const barDown = document.querySelectorAll('.down-progress-bar');
+  const barplay = document.querySelectorAll('.play-progress-bar');
+  const barnoisy = document.querySelectorAll('.noisy-progress-bar');
+  const barsilent = document.querySelectorAll('.silent-progress-bar');
+  const barscreen = document.querySelectorAll('.screen-progress-bar');
+  const barStop = document.querySelectorAll('.stop-progress-bar');
 
-
-  const bar = document.querySelectorAll('.progress-bar');
+  const number =[0,0,0,0,0,0,0];
 
   modeImage.addEventListener('change', () => {
     // backgroundには遅れるがcontentsの方には送れない
@@ -31,63 +30,40 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
     learningUp.addEventListener('click', () => {
+      number[1]=number[1]+6;
+      barUp[0].style.width = Math.min( number[1] , 100) + "%" ;
       chromTabsQueryArrow("up");
     });
     learningDown.addEventListener('click', () => {
+      number[2]=number[2]+6;
+      barDown[0].style.width = Math.min( number[2] , 100) + "%" ;
       chromTabsQueryArrow("down");
     });
     learningplay.addEventListener('click', () => {
+      number[3]=number[3]+6;
+      barplay[0].style.width = Math.min( number[3] , 100) + "%" ;
       chromTabsQueryArrow("play");
     });
     learningnoisy.addEventListener('click', () => {
+      number[4]=number[4]+6;
+      barnoisy[0].style.width = Math.min( number[4] , 100) + "%" ;
       chromTabsQueryArrow("noisy");
     });
     learningsilent.addEventListener('click', () => {
+      number[5]=number[5]+6;
+      barsilent[0].style.width = Math.min( number[5] , 100) + "%" ;
       chromTabsQueryArrow("silent");
     });
     learningscreen.addEventListener('click', () => {
+      number[6]=number[6]+6;
+      barscreen[0].style.width = Math.min( number[6] , 100) + "%" ;
       chromTabsQueryArrow("screen");
     });
     learningStop.addEventListener('click', () => {
+      number[0]=number[0]+4;
+      barStop[0].style.width = Math.min( number[0] , 100) + "%" ;
       chromTabsQueryArrow("stop");
     });
-
-    bar.forEach(function(learningUp, learningDown,learningplay,learningnoisy,learningsilent,
-    learningscreen, learningStop,index) {
-      learningUp.addEventListener('click', () => {
-      
-        bar[index].style.width = Math.min( bar[index]+10 , 100) + "%" ;
-      });
-      learningDown.addEventListener('click', () => {
-      
-        bar[index].style.width = Math.min( bar[index]+10 , 100) + "%" ;
-      });
-      learningplay.addEventListener('click', () => {
-        
-        bar[index].style.width = Math.min( bar[index]+10 , 100) + "%" ;
-      });
-      learningnoisy.addEventListener('click', () => {
-        
-        bar[index].style.width = Math.min( bar[index]+10 , 100) + "%" ;
-      });
-      learningsilent.addEventListener('click', () => {
-        
-        bar[index].style.width = Math.min( bar[index]+10 , 100) + "%" ;
-      });
-      learningscreen.addEventListener('click', () => {
-        
-        bar[index].style.width = Math.min( bar[index]+10 , 100) + "%" ;
-      });
-      learningStop.addEventListener('click', () => {
-
-        bar[index].style.width = Math.min( bar[index]+5 , 100) + "%" ;
-      });
-    });
-
-
-
-
-
 
 
   opacityRange.addEventListener('change', () => {
